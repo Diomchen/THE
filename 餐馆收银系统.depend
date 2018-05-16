@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1526475468 source:c:\users\diomchen\desktop\菜单系统\餐馆收银系统\main.cpp
+	<iostream>
+	"menu.h"
+	<sstream>
+	<time.h>
+	<windows.h>
+
+1526475495 c:\users\diomchen\desktop\菜单系统\餐馆收银系统\menu.h
+
+1526474508 source:c:\users\diomchen\desktop\菜单系统\餐馆收银系统\orglcode.cc
+	"menu.h"
+	<iostream>
+	<string>
+	<windows.h>
+	<time.h>
+	<stdlib.h>
+
