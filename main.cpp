@@ -20,6 +20,9 @@ int main()
 
     cout<<"\nhello!";
 
+    user.select();
+
+
 
     return 0;
 }

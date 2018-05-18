@@ -2,6 +2,9 @@
 #ifndef MENU_H_
 #define MENU_H_
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
 
 //LogIn
 class LogIn
@@ -44,9 +47,9 @@ private:
 
 public:
 
-    void theEmployeeSystem();
-    void showTheMenu(std::HANDLE hOut,std::string *types,int size,int thisIndex);
-    int selectMenu(int *typeSize,int thisIndex);//require : use the keyborad to operate this act
+    void  theEmployeeSystem();
+    void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
+    int staticselectMenu(int Size,int *thisIndex);//require : use the keyborad to operate this act
     void inputValue();
     void showAndPrintTheReceipt();
 

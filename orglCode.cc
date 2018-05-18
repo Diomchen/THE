@@ -64,16 +64,17 @@ void LogIn::select()
     {
         //the employees' system
         cout<<"employee";
+//        theEmployeeSystem();
     }
 }
 
 //=======================================================The employees' system
-CONSOLE_CURSOR_INFO fff;
+CONSOLE_CURSOR_INFO fff;//flashCursor
 
-COORD pos = {0,0};
+COORD pos = {0,0};//define the begin pos
 
 
-void Employee::showTheMenu(HANDLE hOut,string *types,int size,int thisIndex){
+void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 
     int i;
     system("cls");
@@ -84,7 +85,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int size,int thisIndex){
     SetConsoleCursorPosition(hOut,pos);
     cout<<ETITLE;
 
-    for(i=0 ; i<=size ; i++){
+    for(i=0 ; i<=Size ; i++){
         if(i == thisIndex){
             SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
             pos.X=30;
@@ -95,7 +96,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int size,int thisIndex){
         }
         else{
             SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x8);
-            pos.x = 30;
+            pos.X = 30;
             pos.Y = 5+i;
             SetConsoleCursorPosition(hOut,pos);
             cout<<types[i];
@@ -107,29 +108,40 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int size,int thisIndex){
 
 }
 
-int Employee::selectMenu(){
-
+int Employee::selectMenu( Size , *thisIndex){
+    int ch;
+    ch = getch();
+    switch(ch){
+        case UP: if(*thisIndex>0) *thisIndex -= 1;break;
+        case DOWN: if(*thisIndex<Size -1) *thisIndex += 1; break;
+        case LEFT:return 0;break;
+        case RIGHT:return 0;break;
+//        case :break;
+//        case :break;
+//Idea : to make a effect of rebacking
+    }
 
 
 }
-void Employee::inputValue(int sele){
+//void Employee::inputValue(int sele){
+//
+//
+//
+//}
+//void Employee::showAndPrintTheReceipt(){
+//
+//
+//
+//}
 
-
-
-}
-void Employee::showAndPrintTheReceipt(){
-
-
-
-}
 void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
-    int typeSize = 10;
-    HANDLE hout;
-    SetConsoleTitle(ETITLE);//??
+    int Size = 10;
+    HANDLE hOut;
+    SetConsoleTitle(ETITLE);//
 
-    hOut = GetStdHandle(STD_OUTPUT_HANDLE);//??I think it could be delete.
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);//
 
     GetConsoleCursorInfo(hOut,&fff);
 
@@ -138,9 +150,27 @@ void Employee::theEmployeeSystem(){
     SetConsoleCursorInfo(hOut,&fff);
 
     while(true){
-        showTheMenu(hout,types,typeSize,thisIndex);
-        sele = selectMenu(*typeSize,thisIndex);
-        inputValue(sele);
+        showTheMenu(hOut,types,Size,thisIndex);
+        sele = selectMenu(Size, &thisIndex);
+//        if(sele == ESC){
+//            break;
+//        }
+//I want to left this position to the setting of 'reback' , it's could be intresting :-)
+        if(sele == ENTER){
+            switch(thisIndex){
+                case 0:break;
+                case 1:break;
+                case 2:break;
+                case 3:break;
+                case 4:break;
+                case 5:break;
+                case 6:break;
+                case 7:break;
+                case 8:break;
+                case 9:break;
+            }
+        }
+        //inputValue(sele);
     }
 
 
