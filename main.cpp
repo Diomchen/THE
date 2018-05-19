@@ -16,7 +16,7 @@ int main()
 
     user.isGoOn();
 
-    user.select();
+
 
     cout<<"\nhello!";
 

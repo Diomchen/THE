@@ -11,8 +11,10 @@ class LogIn
 {
 private:
     int tValue;
+
     std::string symbol = "\0";
 public:
+
 
     void login();
     void isGoOn();
@@ -23,7 +25,8 @@ public:
 class Employee
 {
 private:
-    enum{
+    enum
+    {
         UP = 72,
         DOWN = 80,
         LEFT = 75,
@@ -31,25 +34,46 @@ private:
         ENTER = 13,
         ESC = 27,
     };
-    std::string types[10]=
+    std::string types[20]=
     {
-        "\tÆ»¹û·¹",
-        "\tÀæ×Ó·¹",
-        "\tÆÏÌÑ·¹",
-        "\tÎ÷¹Ï·¹",
-        "\t²¤ÂÜ·¹",
-        "\tÏã½¶·¹",
-        "\téÙ×Ó·¹",
-        "\tÇàÔæ·¹",
-        "\t²ÝÝ®·¹",
-        "\tÊ¯Áñ·¹"
+//        {
+
+//        }
+            "\tÆ»¹û·¹",
+            "\t",
+            "\tÀæ×Ó·¹",
+            "\t",
+            "\tÆÏÌÑ·¹",
+            "\t",
+            "\tÎ÷¹Ï·¹",
+            "\t",
+            "\t²¤ÂÜ·¹",
+            "\t",
+            "\tÏã½¶·¹",
+            "\t",
+            "\téÙ×Ó·¹",
+            "\t",
+            "\tÇàÔæ·¹",
+            "\t",
+            "\t²ÝÝ®·¹",
+            "\t",
+            "\tÊ¯Áñ·¹",
+            "\t"
+//        }
+
+
+
+
+
+
+
     };
 
 public:
 
     void  theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
-    int staticselectMenu(int Size,int *thisIndex);//require : use the keyborad to operate this act
+    int  selectMenu(int Size,int *thisIndex);//require : use the keyborad to operate this act
     void inputValue();
     void showAndPrintTheReceipt();
 
