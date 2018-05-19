@@ -6,7 +6,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
+#define ESYS "Employee System"
+#define MSYS "Master System"
 #define ETITLE "====================================菜单===================================="
+#define FOOT "============================================================================"
 #define MTITLE "==================================店铺及员工管理=================================="
 
 using namespace std;
@@ -79,30 +82,55 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
     int i;
     system("cls");
 
-    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN);//get the 'TITLE'
+    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);//get the 'TITLE'
     pos.X = 5;
     pos.Y = 2;
     SetConsoleCursorPosition(hOut,pos);//set the position of the 'TITLE'
     cout<<ETITLE;
 
+    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
+    pos.X = 5;
+    pos.Y = 17;
+    SetConsoleCursorPosition(hOut,pos);
+    cout<<FOOT;
+//=======================================================================
     for(i=0 ; i<=Size ; i+=2){
         if(i == thisIndex){
             SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
-            pos.X = 35;
-            pos.Y = 5+i;
+            if(i>=0&&i<10){
+                pos.X = 5;
+                pos.Y = 5+i;
+            }
+            if(i >= 10&&i<20){
+                pos.X = 35;
+                pos.Y = i-5;
+            }
+            if(i>=20&&i<30){
+                pos.X = 65;
+                pos.Y = i-15;
+            }
             SetConsoleCursorPosition(hOut,pos);
             cout<<"=>"<<types[i];
-
         }
         else{
             SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x8);
-            pos.X = 35;
-            pos.Y = 5+i;
+            if(i>=0&&i<10){
+                pos.X = 5;
+                pos.Y = 5+i;
+            }
+            if(i >= 10&&i<20){
+                pos.X = 35;
+                pos.Y = i-5;
+            }
+            if(i>=20&&i<30){
+                pos.X = 65;
+                pos.Y = i-15;
+            }
             SetConsoleCursorPosition(hOut,pos);
             cout<<types[i];
-
         }
     }
+//========================================================================
     fflush(stdout);
 
 
@@ -114,8 +142,8 @@ int Employee::selectMenu(int Size ,int *thisIndex){
     switch(ch){
         case UP: if(*thisIndex>0) *thisIndex -= 2;break;
         case DOWN: if(*thisIndex<Size -2) *thisIndex += 2; break;
-        case LEFT:return 0;break;
-        case RIGHT:return 0;break;
+        case LEFT:if(*thisIndex>=10) *thisIndex -= 10;break;
+        case RIGHT:if(*thisIndex<20) *thisIndex += 10;break;
 //        case :break;
 //        case :break;
 //Idea : to make a effect of rebacking
@@ -139,9 +167,9 @@ CONSOLE_CURSOR_INFO fff;//flashCursor
 void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
-    int Size = 20;
+    int Size = 30;
     HANDLE hOut;
-    SetConsoleTitle(ETITLE);//set Handle
+    SetConsoleTitle(ESYS);//change this title
 
     hOut = GetStdHandle(STD_OUTPUT_HANDLE);//get the std Handle
 
@@ -161,15 +189,15 @@ void Employee::theEmployeeSystem(){
         if(sele == ENTER){
             switch(thisIndex){
                 case 0:break;
-                case 1:break;
                 case 2:break;
-                case 3:break;
                 case 4:break;
-                case 5:break;
                 case 6:break;
-                case 7:break;
                 case 8:break;
-                case 9:break;
+                case 10:break;
+                case 12:break;
+                case 14:break;
+                case 16:break;
+                case 18:break;
             }
         }
         //inputValue(sele);
