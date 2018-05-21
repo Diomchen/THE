@@ -26,16 +26,20 @@ void LogIn::login()
 {
     int t = 3;
     string userN,passW;
+    HANDLE tOut;
+    tOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
     while(t>0)
     {
-        cout<<"You have "<<t<<" chances to login.";
+        SetConsoleTextAttribute(tOut,07);
+        cout<<"\n\nYou have "<<t<<" chances to login.";
         cout<<"\n\tUsername  :  ";
         cin>>userN;
         cout<<"\n\tPassword  :  ";
         cin>>passW;
         if("master" == userN && "666666" == passW)
         {
+            SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
             symbol = "master";
             Sleep(5*1000);
@@ -44,14 +48,15 @@ void LogIn::login()
         }
         else if("20189999" == userN && "private" == passW)
         {
+            SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
             symbol = "employee";
             Sleep(3*1000);
             system("cls");
             break;
-            //
         }
-        cout<<"the username or the passeord  is wrong !!!\n\n";
+        SetConsoleTextAttribute(tOut,FOREGROUND_RED|0X8);
+        cout<<"The Username or the Passeord  is WRONG !!!\n\n";
         t--;
         tValue = t;
     }
@@ -76,6 +81,7 @@ void LogIn::select()
 //=======================================================The employees' system
 
 COORD pos = {0,0};//define the begin pos
+
 
 void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 
@@ -131,7 +137,9 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
         }
     }
 //========================================================================
-    fflush(stdout);
+    fflush(stdout);//Why not use the system("cls")?
+                   //because it's
+
 
 
 }
@@ -144,12 +152,11 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case DOWN: if(*thisIndex<Size -2) *thisIndex += 2; break;
         case LEFT:if(*thisIndex>=10) *thisIndex -= 10;break;
         case RIGHT:if(*thisIndex<20) *thisIndex += 10;break;
-//        case :break;
-//        case :break;
+        case SPACE:break;
+        case ENTER:break;
+        case ESC:break;
 //Idea : to make a effect of rebacking
     }
-
-
 }
 //void Employee::inputValue(int sele){
 //

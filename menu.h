@@ -67,65 +67,13 @@ private:
             "    ",
             "    Ê¯Áñ·¹",
             "    "
-//        },
-//        {
-//            "\tÆ»¹û·¹",
-//            "\t",
-//            "\tÀæ×Ó·¹",
-//            "\t",
-//            "\tÆÏÌÑ·¹",
-//            "\t",
-//            "\tÎ÷¹Ï·¹",
-//            "\t",
-//            "\t²¤ÂÜ·¹",
-//            "\t",
-//            "\tÏã½¶·¹",
-//            "\t",
-//            "\téÙ×Ó·¹",
-//            "\t",
-//            "\tÇàÔæ·¹",
-//            "\t",
-//            "\t²ÝÝ®·¹",
-//            "\t",
-//            "\tÊ¯Áñ·¹",
-//            "\t"
-//        },
-//        {
-//            "\tÆ»¹û·¹",
-//            "\t",
-//            "\tÀæ×Ó·¹",
-//            "\t",
-//            "\tÆÏÌÑ·¹",
-//            "\t",
-//            "\tÎ÷¹Ï·¹",
-//            "\t",
-//            "\t²¤ÂÜ·¹",
-//            "\t",
-//            "\tÏã½¶·¹",
-//            "\t",
-//            "\téÙ×Ó·¹",
-//            "\t",
-//            "\tÇàÔæ·¹",
-//            "\t",
-//            "\t²ÝÝ®·¹",
-//            "\t",
-//            "\tÊ¯Áñ·¹",
-//            "\t"
-//        }
-
-
-
-
-
-
-
     };
 
 public:
 
     void  theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
-    int  selectMenu(int Size,int *thisIndex);//require : use the keyborad to operate this act
+    int  selectMenu(int Size,int *thisIndex);
     void inputValue();
     void showAndPrintTheReceipt();
 
