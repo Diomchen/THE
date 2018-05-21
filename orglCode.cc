@@ -6,10 +6,13 @@
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <vector>
 #define ESYS "Employee System"
 #define MSYS "Master System"
 #define ETITLE "====================================菜单===================================="
+#define SIDETITLE "==========选菜栏=========="
 #define FOOT "============================================================================"
+#define ETIPS "\tYou can press the \"SPACE\" key to confirm your choice \n\n\tor press the \"BACKSPACE\" key to revoke your choice \n\n\tor press the \"ENTER\" key to submit your choices\n\n\tor press the \"ESC\" key to quit this system"
 #define MTITLE "==================================店铺及员工管理=================================="
 
 using namespace std;
@@ -95,10 +98,17 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
     cout<<ETITLE;
 
     SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
+    pos.X = 85;
+    pos.Y = 2;
+    SetConsoleCursorPosition(hOut,pos);
+    cout<<SIDETITLE;
+
+    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
     pos.X = 5;
     pos.Y = 17;
     SetConsoleCursorPosition(hOut,pos);
     cout<<FOOT;
+    cout<<"\n"<<ETIPS;
 //=======================================================================
     for(i=0 ; i<=Size ; i+=2){
         if(i == thisIndex){
@@ -139,9 +149,6 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 //========================================================================
     fflush(stdout);//Why not use the system("cls")?
                    //because it's
-
-
-
 }
 
 int Employee::selectMenu(int Size ,int *thisIndex){
@@ -152,17 +159,19 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case DOWN: if(*thisIndex<Size -2) *thisIndex += 2; break;
         case LEFT:if(*thisIndex>=10) *thisIndex -= 10;break;
         case RIGHT:if(*thisIndex<20) *thisIndex += 10;break;
-        case SPACE:break;
+        case SPACE:return 32; break;
         case ENTER:break;
-        case ESC:break;
+        case ESC:return 27;break;
 //Idea : to make a effect of rebacking
     }
 }
-//void Employee::inputValue(int sele){
-//
-//
-//
-//}
+void Employee::inputValue(int sele){
+
+
+
+
+
+}
 //void Employee::showAndPrintTheReceipt(){
 //
 //
@@ -171,10 +180,13 @@ int Employee::selectMenu(int Size ,int *thisIndex){
 
 CONSOLE_CURSOR_INFO fff;//flashCursor
 
+
 void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
     int Size = 30;
+    vector<int>/////-----------------------------------------------------------------------------------------mark
+
     HANDLE hOut;
     SetConsoleTitle(ESYS);//change this title
 
@@ -182,31 +194,44 @@ void Employee::theEmployeeSystem(){
 
     GetConsoleCursorInfo(hOut,&fff);//get cursor
 
-    fff.bVisible = 0;//set this cursor disappear
+    fff.bVisible = 1;//set this cursor disappear
 
     SetConsoleCursorInfo(hOut,&fff);//set cursor
 
     while(true){
         showTheMenu(hOut,types,Size,thisIndex);
         sele = selectMenu(Size, &thisIndex);
-//        if(sele == ESC){
-//            break;
-//        }
-//I want to left this position to the setting of 'rebacking' , it's could be intresting :-)
-        if(sele == ENTER){
+        if(sele == ESC){
+            system("cls");
+            cout<<"\n\n\n\t\t\t>>>>>>>>>>>>>>   This system is stop!  <<<<<<<<<<<<<<\n\n\n\n";
+            SetConsoleTextAttribute(hOut,07);
+            break;
+        }
+        if(sele == SPACE){
+            pos.X = 85;
+            pos.Y = 4;
+            SetConsoleCursorPosition(hOut,pos);
             switch(thisIndex){
-                case 0:break;
-                case 2:break;
-                case 4:break;
-                case 6:break;
-                case 8:break;
-                case 10:break;
-                case 12:break;
-                case 14:break;
-                case 16:break;
-                case 18:break;
+                case 0:
+                    //we should use vector
+                    break;
+                case 2: break;
+                case 4: break;
+                case 6: break;
+                case 8: break;
+                case 10: break;
+                case 12: break;
+                case 14: break;
+                case 16: break;
+                case 18: break;
+                case 20: break;
+                case 22: break;
+                case 24: break;
+                case 26: break;
+                case 28: break;
             }
         }
+        //I want to left "BACKSPACE" for the setting of 'revoking' , it's could be intresting :-)
         //inputValue(sele);
     }
 }

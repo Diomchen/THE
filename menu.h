@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <vector>
 
 //LogIn
 class LogIn
@@ -33,39 +34,40 @@ private:
         RIGHT = 77,
         ENTER = 13,
         ESC = 27,
+        BACKSPACE = 8,
+        SPACE = 32
     };
     std::string types[30]=
     {
-//        {
-            "    Æ»¹û·¹",
+            "    Æ»¹û·¹ 10£¤",
             "    ",
-            "    Àæ×Ó·¹",
+            "    Àæ×Ó·¹ 10£¤",
             "    ",
-            "    ÆÏÌÑ·¹",
+            "    ÆÏÌÑ·¹ 10£¤",
             "    ",
-            "    Î÷¹Ï·¹",
+            "    Î÷¹Ï·¹ 10£¤",
             "    ",
-            "    ²¤ÂÜ·¹",
+            "    ²¤ÂÜ·¹ 10£¤",
             "    ",
-            "    Ïã½¶·¹",
+            "    Ïã½¶·¹ 10£¤",
             "    ",
-            "    éÙ×Ó·¹",
+            "    éÙ×Ó·¹ 10£¤",
             "    ",
-            "    ÇàÔæ·¹",
+            "    ÇàÔæ·¹ 10£¤",
             "    ",
-            "    ²ÝÝ®·¹",
+            "    ²ÝÝ®·¹ 15£¤",
             "    ",
-            "    Ê¯Áñ·¹",
+            "    Ê¯Áñ·¹ 15£¤",
             "    ",
-            "    Ïã½¶·¹",
+            "    Ïã½¶·¹ 15£¤",
             "    ",
-            "    éÙ×Ó·¹",
+            "    éÙ×Ó·¹ 15£¤",
             "    ",
-            "    ÇàÔæ·¹",
+            "    ÇàÔæ·¹ 15£¤",
             "    ",
-            "    ²ÝÝ®·¹",
+            "    ²ÝÝ®·¹ 15£¤",
             "    ",
-            "    Ê¯Áñ·¹",
+            "    Ê¯Áñ·¹ 15£¤",
             "    "
     };
 
@@ -74,7 +76,7 @@ public:
     void  theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);
-    void inputValue();
+    void inputValue(int sele);
     void showAndPrintTheReceipt();
 
 //    void showTheMenuDetails();   //there is a good idea to perfect the program.
