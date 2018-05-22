@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <vector>
+
 #define ESYS "Employee System"
 #define MSYS "Master System"
 #define ETITLE "====================================²Ëµ¥===================================="
@@ -105,10 +106,26 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 
     SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
     pos.X = 5;
-    pos.Y = 17;
+    pos.Y = 15;
+    SetConsoleCursorPosition(hOut,pos);
+    cout<<FOOT;
+
+    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
+    pos.X = 5;
+    pos.Y = 19;
     SetConsoleCursorPosition(hOut,pos);
     cout<<FOOT;
     cout<<"\n"<<ETIPS;
+
+//    SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
+//    pos.X = 87;
+//    pos.Y = 4;
+//    vector<int>::iterator it;
+//    for(it = sStorage.begin(); it!=sStorage.end() ;it++){
+//
+//    }
+//-----------------------------------------------------------------------------------------mark
+
 //=======================================================================
     for(i=0 ; i<=Size ; i+=2){
         if(i == thisIndex){
@@ -168,13 +185,18 @@ int Employee::selectMenu(int Size ,int *thisIndex){
 }
 void Employee::inputValue(int cou,int thisIndex){
     int wantNum;
-    cout<<kind[thisIndex].name<<" : ";
+    showStorage tag;//key step
+
+    cout<<thisIndex<<" "<<kind[thisIndex].name<<"¡Á ";
     cin>>wantNum;
-    sStorage[cou].sName = kind[thisIndex].name;
-    (sStorage[cou].sName).push_back(kind[thisIndex].name);
-    (sStorage[cou].sPrice).push_back((kind[thisIndex].price) * wantNum);
+
+    tag.sName = kind[thisIndex].name;
+    tag.sPrice = kind[thisIndex].price * wantNum;
+
+    sStorage.push_back(tag);
+
 }
-//-------------------------------------------------------------------------------------mark
+
 
 //void Employee::showAndPrintTheReceipt(){
 //
@@ -189,11 +211,7 @@ void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
     int Size = 30;
-
     int cou = 1;
-
-
-//    vector<int>/////-----------------------------------------------------------------------------------------mark
 
     HANDLE hOut;
     SetConsoleTitle(ESYS);//change this title
@@ -202,7 +220,7 @@ void Employee::theEmployeeSystem(){
 
     GetConsoleCursorInfo(hOut,&fff);//get cursor
 
-    fff.bVisible = 1;//set this cursor disappear
+    fff.bVisible = 0;//set this cursor disappear
 
     SetConsoleCursorInfo(hOut,&fff);//set cursor
 
@@ -216,30 +234,55 @@ void Employee::theEmployeeSystem(){
             break;
         }
         if(sele == SPACE){
-            pos.X = 85;
-            pos.Y = 4;
+            pos.X = 5;
+            pos.Y = 17;
             SetConsoleCursorPosition(hOut,pos);
             switch(thisIndex){
                 case 0:
                     inputValue(cou,thisIndex);
-
-                    //we should use vector
                     break;
                 case 2:
+                    inputValue(cou,thisIndex);
                     break;
-                case 4: break;
-                case 6: break;
-                case 8: break;
-                case 10: break;
-                case 12: break;
-                case 14: break;
-                case 16: break;
-                case 18: break;
-                case 20: break;
-                case 22: break;
-                case 24: break;
-                case 26: break;
-                case 28: break;
+                case 4:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 6:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 8:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 10:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 12:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 14:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 16:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 18:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 20:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 22:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 24:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 26:
+                    inputValue(cou,thisIndex);
+                    break;
+                case 28:
+                    inputValue(cou,thisIndex);
+                    break;
             }
             cou++;
         }
