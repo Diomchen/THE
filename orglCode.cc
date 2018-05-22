@@ -13,7 +13,8 @@
 #define ETITLE "====================================菜单===================================="
 #define SIDETITLE "==========选菜栏=========="
 #define FOOT "============================================================================"
-#define ETIPS "\tYou can press the \"SPACE\" key to confirm your choice \n\n\tor press the \"BACKSPACE\" key to revoke your choice \n\n\tor press the \"ENTER\" key to submit your choices\n\n\tor press the \"ESC\" key to quit this system"
+#define COUNT "===================================计数栏===================================="
+#define ETIPS "\tYou can press the \"SPACE\" key to confirm your choice \n\n\tor press the \"TAB\" key to revoke your choice \n\n\tor press the \"ENTER\" key to submit your choices\n\n\tor press the \"ESC\" key to quit this system"
 #define MTITLE "==================================店铺及员工管理=================================="
 
 using namespace std;
@@ -108,7 +109,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
     pos.X = 5;
     pos.Y = 15;
     SetConsoleCursorPosition(hOut,pos);
-    cout<<FOOT;
+    cout<<COUNT;
 
     SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);
     pos.X = 5;
@@ -117,11 +118,25 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
     cout<<FOOT;
     cout<<"\n"<<ETIPS;
 
-//    SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
-//    pos.X = 87;
-//    pos.Y = 4;
-//    vector<int>::iterator it;
-//    for(it = sStorage.begin(); it!=sStorage.end() ;it++){
+
+
+
+    SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
+    int span = 0;
+    for(int t=0 ; t<sStorage.size() ; t++){
+        pos.X = 87;
+        pos.Y = 4+span;
+        SetConsoleCursorPosition(hOut,pos);
+        cout<<sStorage[t].sName<<" : "<<sStorage[t].sPrice<<" 元"<<"\n"<<endl;
+        span += 2;
+    }
+
+//    for(it=sStorage.begin() ; it!=sStorage.end() ; it++ ){
+//        pos.X = 87;
+//        pos.Y = 4+span;
+//        SetConsoleCursorPosition(hOut,pos);
+//        cout<<(*it).sName<<" : "<<(*it).sPrice<<" 元"<<"\n"<<endl;
+//        span += 2;
 //
 //    }
 //-----------------------------------------------------------------------------------------mark
@@ -179,6 +194,7 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case SPACE:return 32; break;
         case ENTER:break;
         case ESC:return 27;break;
+        case TAB:return 9;break;
 //Idea : to make a effect of rebacking
     }
     return 0;
@@ -187,7 +203,7 @@ void Employee::inputValue(int cou,int thisIndex){
     int wantNum;
     showStorage tag;//key step
 
-    cout<<thisIndex<<" "<<kind[thisIndex].name<<"× ";
+    cout<<kind[thisIndex].name<<"× ";
     cin>>wantNum;
 
     tag.sName = kind[thisIndex].name;
@@ -285,6 +301,26 @@ void Employee::theEmployeeSystem(){
                     break;
             }
             cou++;
+        }
+        if(sele == TAB){
+            pos.X = 5;
+            pos.Y = 17;
+            SetConsoleCursorPosition(hOut,pos);
+            char ch;
+            cout<<"Do you want to delete your last choice?( Y / N )";
+            cin>>ch;
+            if(ch == 'Y'){
+                int mid;
+//                showStorage tpg;
+                int s = sStorage.size();
+                sStorage.pop_back(sStorage[s-1]);
+//--------------------------------------------------------------------------------------------mark
+//                mid = ;
+//                showStorage tpg;
+//                tpg.sName.pop_back();
+//                tpg.sPrice.pop_back(mid);
+            }
+
         }
 
         //I want to left "BACKSPACE" for the setting of 'revoking' , it's could be intresting :-)

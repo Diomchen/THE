@@ -36,13 +36,15 @@ private:
         ENTER = 13,
         ESC = 27,
         BACKSPACE = 8,
-        SPACE = 32
+        SPACE = 32,
+        TAB = 9
     };
 
     struct storage{
         std::string name;
         int price;
     };
+
 
     storage kind[30]{
         {"Æ»¹û·¹",10},{},
@@ -66,6 +68,7 @@ private:
         std::string sName;
         int sPrice;
     };
+
     std::vector<showStorage> sStorage;
 
     std::string types[30]=
@@ -108,7 +111,6 @@ public:
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);
     void inputValue(int cou,int thisIndex);
-    void showSideMenu();
     void showAndPrintTheReceipt();
 
 //    void showTheMenuDetails();   //there is a good idea to perfect the program.
