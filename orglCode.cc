@@ -164,14 +164,18 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case ESC:return 27;break;
 //Idea : to make a effect of rebacking
     }
+    return 0;
 }
-void Employee::inputValue(int sele){
-
-
-
-
-
+void Employee::inputValue(int cou,int thisIndex){
+    int wantNum;
+    cout<<kind[thisIndex].name<<" : ";
+    cin>>wantNum;
+    sStorage[cou].sName = kind[thisIndex].name;
+    (sStorage[cou].sName).push_back(kind[thisIndex].name);
+    (sStorage[cou].sPrice).push_back((kind[thisIndex].price) * wantNum);
 }
+//-------------------------------------------------------------------------------------mark
+
 //void Employee::showAndPrintTheReceipt(){
 //
 //
@@ -185,7 +189,11 @@ void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
     int Size = 30;
-    vector<int>/////-----------------------------------------------------------------------------------------mark
+
+    int cou = 1;
+
+
+//    vector<int>/////-----------------------------------------------------------------------------------------mark
 
     HANDLE hOut;
     SetConsoleTitle(ESYS);//change this title
@@ -213,9 +221,12 @@ void Employee::theEmployeeSystem(){
             SetConsoleCursorPosition(hOut,pos);
             switch(thisIndex){
                 case 0:
+                    inputValue(cou,thisIndex);
+
                     //we should use vector
                     break;
-                case 2: break;
+                case 2:
+                    break;
                 case 4: break;
                 case 6: break;
                 case 8: break;
@@ -230,9 +241,11 @@ void Employee::theEmployeeSystem(){
                 case 26: break;
                 case 28: break;
             }
+            cou++;
         }
+
         //I want to left "BACKSPACE" for the setting of 'revoking' , it's could be intresting :-)
-        //inputValue(sele);
+
     }
 }
 
