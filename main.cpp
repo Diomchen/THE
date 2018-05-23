@@ -7,6 +7,8 @@
 #include <time.h>
 #include <windows.h>
 #include <vector>
+#include <fstream>
+
 
 using namespace std;
 

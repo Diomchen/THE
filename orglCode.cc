@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <vector>
+#include <fstream>
 
 #define ESYS "Employee System"
 #define MSYS "Master System"
@@ -25,6 +26,14 @@ void LogIn::isGoOn()
 {
     if(tValue == 0)
         exit(0);
+}
+bool LogIn::verifying(string userN,string passW){
+    //first ,we should virefy the username(userN)
+
+
+    //second , we should virefy the password(passW)
+
+
 }
 
 void LogIn::login()
@@ -123,7 +132,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 
     SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
     int span = 0;
-    for(int t=0 ; t<sStorage.size() ; t++){
+    for(int t=0 ; t<(int)sStorage.size() ; t++){
         pos.X = 87;
         pos.Y = 4+span;
         SetConsoleCursorPosition(hOut,pos);
@@ -131,14 +140,6 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
         span += 2;
     }
 
-//    for(it=sStorage.begin() ; it!=sStorage.end() ; it++ ){
-//        pos.X = 87;
-//        pos.Y = 4+span;
-//        SetConsoleCursorPosition(hOut,pos);
-//        cout<<(*it).sName<<" : "<<(*it).sPrice<<" Ԫ"<<"\n"<<endl;
-//        span += 2;
-//
-//    }
 //-----------------------------------------------------------------------------------------mark
 
 //=======================================================================
@@ -191,8 +192,8 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case DOWN: if(*thisIndex<Size -2) *thisIndex += 2; break;
         case LEFT:if(*thisIndex>=10) *thisIndex -= 10;break;
         case RIGHT:if(*thisIndex<20) *thisIndex += 10;break;
-        case SPACE:return 32; break;
-        case ENTER:break;
+        case SPACE:return 32;break;
+        case ENTER:return 13;break;
         case ESC:return 27;break;
         case TAB:return 9;break;
 //Idea : to make a effect of rebacking
@@ -213,12 +214,11 @@ void Employee::inputValue(int cou,int thisIndex){
 
 }
 
+void Employee::showAndPrintTheReceipt(){
 
-//void Employee::showAndPrintTheReceipt(){
-//
-//
-//
-//}
+
+
+}
 
 CONSOLE_CURSOR_INFO fff;//flashCursor
 
@@ -306,24 +306,26 @@ void Employee::theEmployeeSystem(){
             pos.X = 5;
             pos.Y = 17;
             SetConsoleCursorPosition(hOut,pos);
-            char ch;
+            char chO;
             cout<<"Do you want to delete your last choice?( Y / N )";
-            cin>>ch;
-            if(ch == 'Y'){
-                int mid;
-//                showStorage tpg;
-                int s = sStorage.size();
-                sStorage.pop_back(sStorage[s-1]);
-//--------------------------------------------------------------------------------------------mark
-//                mid = ;
-//                showStorage tpg;
-//                tpg.sName.pop_back();
-//                tpg.sPrice.pop_back(mid);
+            cin>>chO;
+            if(chO == 'Y'){
+                sStorage.erase(sStorage.end()-1);
             }
-
+        }
+        if(sele == ENTER){
+            pos.X = 5;
+            pos.Y = 17;
+            SetConsoleCursorPosition(hOut,pos);
+            char chT;
+            cout<<"Do you want to submit your choice?( Y / N )";
+            cin>>chT;
+            if(chT == 'Y'){
+                showAndPrintTheReceipt();
+            }
         }
 
-        //I want to left "BACKSPACE" for the setting of 'revoking' , it's could be intresting :-)
+        //I want to left "TAB" for the setting of 'revoking' , it's could be intresting :-)
 
     }
 }

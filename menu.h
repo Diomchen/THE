@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <vector>
+#include <fstream>
 
 
 //LogIn
@@ -16,11 +17,10 @@ private:
 
     std::string symbol = "\0";
 public:
-
-
     void login();
     void isGoOn();
     void select();
+    bool verifying(string userN,string passW);
 };
 
 //Employee
