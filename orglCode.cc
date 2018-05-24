@@ -266,11 +266,22 @@ void Employee::inputValue(int cou,int thisIndex){
 
 void Employee::showAndPrintTheReceipt(){
 
+    char ch;
 
-    cout<<"Pay!!successful"<<endl;
+
+    cout<<"\n\n\n\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
+    cout<<"\t----------------------------------------------------------------"<<endl;
+
+
+
+
+
+
+
+
     cout<<"Do you want to print the receipt?( Y / N )";
-    char testttt;
-    cin>>testttt;
+    cin>>ch;
+
 
 
 }
@@ -380,7 +391,7 @@ void Employee::theEmployeeSystem(){
             if(chO == 'Y'){
                 sStorage.erase(sStorage.end()-1);
             }
-        }
+        }//I want to left "TAB" for the setting of 'revoking' , it's could be intresting :-)
         if(sele == ENTER){
             system("cls");
             pos.X = 5;
@@ -400,7 +411,7 @@ void Employee::theEmployeeSystem(){
             }
         }
 
-        //I want to left "TAB" for the setting of 'revoking' , it's could be intresting :-)
+
 
     }
 }
