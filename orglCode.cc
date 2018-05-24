@@ -27,14 +27,7 @@ void LogIn::isGoOn()
     if(tValue == 0)
         exit(0);
 }
-bool LogIn::verifying(string userN,string passW){
-    //first ,we should virefy the username(userN)
 
-
-    //second , we should virefy the password(passW)
-
-
-}
 
 void LogIn::login()
 {
@@ -51,7 +44,7 @@ void LogIn::login()
         cin>>userN;
         cout<<"\n\tPassword  :  ";
         cin>>passW;
-        if("master" == userN && "666666" == passW)
+        if(verifyingMas(userN,passW))
         {
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
@@ -60,7 +53,7 @@ void LogIn::login()
             system("cls");
             break;
         }
-        else if("20189999" == userN && "private" == passW)
+        else if(verifyingEmp(userN,passW))
         {
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
@@ -74,6 +67,62 @@ void LogIn::login()
         t--;
         tValue = t;
     }
+}
+
+bool LogIn::verifyingEmp(string userN,string passW){
+    fstream File("employeeCountInformation.txt",ios::app);
+    ifstream inFile;
+    string serchO,serchT;
+    inFile.open("employeeCountInformation.txt",ios::in);
+    if(!inFile.is_open()){
+        return false;
+    }
+    else{
+        while(!inFile.eof()){
+            inFile>>serchO;
+            if(serchO == userN){
+                inFile>>serchT;//Key step : read the serchT which is behind the serchO
+                if(serchT == passW){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+    }
+    inFile.close();
+    File.close();
+
+    return false;
+}
+
+bool LogIn::verifyingMas(string userN,string passW){
+    fstream File("masterCountInformation.txt",ios::app);
+    ifstream inFile;
+    string serchO,serchT;
+    inFile.open("masterCountInformation.txt",ios::in);
+    if(!inFile.is_open()){
+        return false;
+    }
+    else{
+        while(!inFile.eof()){
+            inFile>>serchO;
+            if(serchO == userN){
+                inFile>>serchT;
+                if(serchT == passW){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+    }
+    inFile.close();
+    File.close();
+
+    return false;
 }
 
 void LogIn::select()
@@ -127,9 +176,6 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
     cout<<FOOT;
     cout<<"\n"<<ETIPS;
 
-
-
-
     SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
     int span = 0;
     for(int t=0 ; t<(int)sStorage.size() ; t++){
@@ -139,6 +185,9 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
         cout<<sStorage[t].sName<<" : "<<sStorage[t].sPrice<<" Ԫ"<<"\n"<<endl;
         span += 2;
     }
+
+//    SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x8);
+//    showAndPrintTheReceipt();
 
 //-----------------------------------------------------------------------------------------mark
 
@@ -208,6 +257,7 @@ void Employee::inputValue(int cou,int thisIndex){
     cin>>wantNum;
 
     tag.sName = kind[thisIndex].name;
+    tag.sCopies = wantNum;
     tag.sPrice = kind[thisIndex].price * wantNum;
 
     sStorage.push_back(tag);
@@ -217,8 +267,26 @@ void Employee::inputValue(int cou,int thisIndex){
 void Employee::showAndPrintTheReceipt(){
 
 
+    cout<<"Pay!!successful"<<endl;
+    cout<<"Do you want to print the receipt?( Y / N )";
+    char testttt;
+    cin>>testttt;
+
 
 }
+
+string Employee::getPresentTime(){
+    string strTime;
+
+    time_t pt;
+    time(&pt);
+
+    strTime = ctime(&pt);
+    return strTime;
+
+}
+
+//-------------------------------------------------------------------------------------------------mark
 
 CONSOLE_CURSOR_INFO fff;//flashCursor
 
@@ -314,14 +382,21 @@ void Employee::theEmployeeSystem(){
             }
         }
         if(sele == ENTER){
+            system("cls");
             pos.X = 5;
-            pos.Y = 17;
+            pos.Y = 13;
             SetConsoleCursorPosition(hOut,pos);
             char chT;
             cout<<"Do you want to submit your choice?( Y / N )";
             cin>>chT;
             if(chT == 'Y'){
-                showAndPrintTheReceipt();
+                    system("cls");
+                while(true){
+                    showAndPrintTheReceipt();
+                    //initail the vector array;
+                    sStorage.clear();
+                    break;
+                }
             }
         }
 

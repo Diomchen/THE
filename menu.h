@@ -20,7 +20,8 @@ public:
     void login();
     void isGoOn();
     void select();
-    bool verifying(string userN,string passW);
+    bool verifyingEmp(std::string userN,std::string passW);
+    bool verifyingMas(std::string userN,std::string passW);
 };
 
 //Employee
@@ -66,6 +67,7 @@ private:
 
     struct showStorage{
         std::string sName;
+        int sCopies;
         int sPrice;
     };
 
@@ -112,6 +114,7 @@ public:
     int  selectMenu(int Size,int *thisIndex);
     void inputValue(int cou,int thisIndex);
     void showAndPrintTheReceipt();
+    std::string getPresentTime();
 
 //    void showTheMenuDetails();   //there is a good idea to perfect the program.
 
