@@ -7,16 +7,16 @@
 #include <windows.h>
 #include <vector>
 #include <fstream>
-
+#include <iomanip>
 
 //LogIn
 class LogIn
 {
 private:
     int tValue;
-
     std::string symbol = "\0";
 public:
+    std::string serchStr;
     void login();
     void isGoOn();
     void select();
@@ -108,6 +108,7 @@ private:
     };
 
 public:
+
 
     void  theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);

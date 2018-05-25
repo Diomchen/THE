@@ -4,29 +4,31 @@
 	<ActiveTarget name="Debug" />
 	<File name="menu.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2568" topLine="29" />
+			<Cursor1 position="296" topLine="6" />
 		</Cursor>
 		<Folding>
 			<Collapse line="31" />
 			<Collapse line="49" />
+			<Collapse line="76" />
 		</Folding>
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="80" topLine="3" />
+			<Cursor1 position="377" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="orglCode.cc" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="orglCode.cc" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7785" topLine="167" />
+			<Cursor1 position="8143" topLine="135" />
 		</Cursor>
 		<Folding>
-			<Collapse line="25" />
-			<Collapse line="32" />
-			<Collapse line="39" />
-			<Collapse line="71" />
-			<Collapse line="99" />
-			<Collapse line="334" />
+			<Collapse line="26" />
+			<Collapse line="48" />
+			<Collapse line="72" />
+			<Collapse line="151" />
+			<Collapse line="197" />
+			<Collapse line="238" />
+			<Collapse line="386" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

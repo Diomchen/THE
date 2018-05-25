@@ -1,6 +1,7 @@
 //orgCode.cpp
 #include "menu.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <windows.h>
 #include <time.h>
@@ -98,6 +99,7 @@ bool LogIn::verifyingEmp(string userN,string passW){
 }
 
 bool LogIn::verifyingMas(string userN,string passW){
+
     fstream File("masterCountInformation.txt",ios::app);
     ifstream inFile;
     string serchO,serchT;
@@ -109,6 +111,7 @@ bool LogIn::verifyingMas(string userN,string passW){
         while(!inFile.eof()){
             inFile>>serchO;
             if(serchO == userN){
+                serchStr = userN;
                 inFile>>serchT;
                 if(serchT == passW){
                     return true;
@@ -264,24 +267,73 @@ void Employee::inputValue(int cou,int thisIndex){
 
 }
 
+CONSOLE_CURSOR_INFO sss;
+
 void Employee::showAndPrintTheReceipt(){
 
+    double AllPrice = 0;
+    int AllNum = 0;
     char ch;
+    LogIn seStr;
+    string sTime = getPresentTime();
+    HANDLE sOut;
+    sOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    for(int i=0 ; i<(int)sStorage.size() ; i++){
+        AllPrice += sStorage[i].sPrice;
+        AllNum += sStorage[i].sCopies;
+    }
+//----------------------------------------------------------------------------------------------------------------------------mark
+    cout<<"\n\n\tOperator  :  "<<seStr.serchStr<<endl;
+
+    cout<<"\n\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
+    cout<<"\t-----------------------------------------------------------------------"<<endl;
+    for(int i=0 ; i<(int)sStorage.size() ; i++){
+        cout<<"\n\n\t"<<sStorage[i].sName<<"\t\t\t\t\t"<<sStorage[i].sCopies<<"\t\t"<<sStorage[i].sPrice;
+    }
+    cout<<"\n\t-----------------------------------------------------------------------"<<endl;
+    cout<<"\n\t         \t\t\t\tAllNumber\tTotal Amount";
+    cout<<"\n\t-----------------------------------------------------------------------"<<endl;
+    cout<<"\n\tTotal : \t\t\t\t"<<AllNum<<"\t\t"<<fixed<<setprecision(1)<<AllPrice<<endl;
+    cout<<"\n\t-----------------------------------------------------------------------"<<endl;
 
 
-    cout<<"\n\n\n\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
-    cout<<"\t----------------------------------------------------------------"<<endl;
-
-
-
-
-
-
-
-
-    cout<<"Do you want to print the receipt?( Y / N )";
+    cout<<"\n\tDo you want to print the receipt?( Y / N )";
     cin>>ch;
+    if('Y' == ch){
+        fstream printReceipt("receipt.txt",ios::app);
+        ofstream outReceipt("receipt.txt",ios::trunc);
+        if(!outReceipt.is_open()){
+            SetConsoleTextAttribute(sOut,FOREGROUND_RED);
+            cout<<"Print  Failure!";
+        }
+        else{
+            outReceipt<<"\n\n\n\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\tDate\t\t\t\t\t"<<sTime<<endl;
+            outReceipt<<"\tOperator\t\t\t\t\t"<<seStr.serchStr<<endl;
+            outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
+            outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
+            for(int i=0 ; i<(int)sStorage.size() ; i++){
+                outReceipt<<"\n\n\t"<<sStorage[i].sName<<"\t\t\t\t\t"<<sStorage[i].sCopies<<"\t\t"<<sStorage[i].sPrice;
+            }
+            outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\n\t         \t\t\t\t\tAllNumber\tTotal Amount";
+            outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\n\tTotal : \t\t\t\t\t"<<AllNum<<"\t\t"<<fixed<<setprecision(1)<<AllPrice<<endl;
+            outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\n\t--------------------------------- Thank you for patronage ! --------------------------------"<<endl;
 
+
+        }
+        outReceipt.close();
+        printReceipt.close();
+
+        system("cls");
+        SetConsoleTextAttribute(sOut,FOREGROUND_GREEN|0x0a);
+        cout<<"\n\n\n\n\n\n\t\t\tPrint  Success!!\n\n\n\t\tAnd  the  system  will  back  to  the  menu  after  3s .....";
+        Sleep(3000);
+    }
 
 
 }
@@ -403,6 +455,7 @@ void Employee::theEmployeeSystem(){
             if(chT == 'Y'){
                     system("cls");
                 while(true){
+                    SetConsoleTextAttribute(hOut,FOREGROUND_GREEN);
                     showAndPrintTheReceipt();
                     //initail the vector array;
                     sStorage.clear();
