@@ -15,8 +15,11 @@ class LogIn
 private:
     int tValue;
     std::string symbol = "\0";
+    static std::string serchStr;
 public:
-    std::string serchStr;
+    std::string getSech(){
+        return serchStr;
+    };
     void login();
     void isGoOn();
     void select();
@@ -28,6 +31,8 @@ public:
 class Employee
 {
 private:
+
+
     enum
     {
         UP = 72,
@@ -108,8 +113,6 @@ private:
     };
 
 public:
-
-
     void  theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);

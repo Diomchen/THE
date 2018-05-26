@@ -21,6 +21,8 @@
 
 using namespace std;
 
+string LogIn::serchStr = "\0";
+
 //=======================================================logIn
 
 void LogIn::isGoOn()
@@ -56,6 +58,7 @@ void LogIn::login()
         }
         else if(verifyingEmp(userN,passW))
         {
+            LogIn::serchStr = userN;
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
             symbol = "employee";
@@ -99,7 +102,6 @@ bool LogIn::verifyingEmp(string userN,string passW){
 }
 
 bool LogIn::verifyingMas(string userN,string passW){
-
     fstream File("masterCountInformation.txt",ios::app);
     ifstream inFile;
     string serchO,serchT;
@@ -111,7 +113,6 @@ bool LogIn::verifyingMas(string userN,string passW){
         while(!inFile.eof()){
             inFile>>serchO;
             if(serchO == userN){
-                serchStr = userN;
                 inFile>>serchT;
                 if(serchT == passW){
                     return true;
@@ -274,7 +275,8 @@ void Employee::showAndPrintTheReceipt(){
     double AllPrice = 0;
     int AllNum = 0;
     char ch;
-    LogIn seStr;
+    LogIn Operator;
+
     string sTime = getPresentTime();
     HANDLE sOut;
     sOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -284,7 +286,7 @@ void Employee::showAndPrintTheReceipt(){
         AllNum += sStorage[i].sCopies;
     }
 //----------------------------------------------------------------------------------------------------------------------------mark
-    cout<<"\n\n\tOperator  :  "<<seStr.serchStr<<endl;
+    cout<<"\n\n\tOperator  :  "<<Operator.getSech()<<endl;
 
     cout<<"\n\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
     cout<<"\t-----------------------------------------------------------------------"<<endl;
@@ -310,7 +312,7 @@ void Employee::showAndPrintTheReceipt(){
         else{
             outReceipt<<"\n\n\n\t-----------------------------------------------------------------------------------------------"<<endl;
             outReceipt<<"\tDate\t\t\t\t\t"<<sTime<<endl;
-            outReceipt<<"\tOperator\t\t\t\t\t"<<seStr.serchStr<<endl;
+            outReceipt<<"\tOperator\t\t\t\t\t"<<Operator.getSech()<<endl;
             outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
             outReceipt<<"\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
             outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
