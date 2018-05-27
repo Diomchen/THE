@@ -15,9 +15,9 @@
 #define ETITLE "====================================菜单===================================="
 #define SIDETITLE "==========选菜栏=========="
 #define FOOT "============================================================================"
-#define COUNT "===================================计数栏===================================="
+#define COUNT "===================================状态栏===================================="
 #define ETIPS "\tYou can press the \"SPACE\" key to confirm your choice \n\n\tor press the \"TAB\" key to revoke your choice \n\n\tor press the \"ENTER\" key to submit your choices\n\n\tor press the \"ESC\" key to quit this system"
-#define MTITLE "==================================店铺及员工管理=================================="
+#define MTITLE "===============================店铺及员工管理==============================="
 
 using namespace std;
 
@@ -52,13 +52,13 @@ void LogIn::login()
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
             symbol = "master";
-            Sleep(5*1000);
+            Sleep(1*1000);
             system("cls");
             break;
         }
         else if(verifyingEmp(userN,passW))
         {
-            LogIn::serchStr = userN;
+            serchStr = userN;
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
             cout<<"\n\n\t\tLog in...";
             symbol = "employee";
@@ -134,25 +134,24 @@ void LogIn::select()
     if(symbol == "master")
     {
         //the master's system
-        cout<<"master";
+        Master B;
+        B.theMasterSystem();
     }
     else if(symbol == "employee")
     {
         //the employees' system
-
         Employee A;//TIPS : If you want to use the classB's function in the classA , you could make a object to use it.
         A.theEmployeeSystem();
     }
 }
 
-//=======================================================The employees' system
+//=======================================================The employees' system=======================================================
 
 COORD pos = {0,0};//define the begin pos
 
-
 void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
 
-    int i;
+//    int i;
     system("cls");
 
     SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);//get the 'TITLE'
@@ -190,13 +189,8 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
         span += 2;
     }
 
-//    SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x8);
-//    showAndPrintTheReceipt();
-
-//-----------------------------------------------------------------------------------------mark
-
 //=======================================================================
-    for(i=0 ; i<=Size ; i+=2){
+    for(int i=0 ; i<Size ; i+=2){
         if(i == thisIndex){
             SetConsoleTextAttribute(hOut,FOREGROUND_RED|0x8);
             if(i>=0&&i<10){
@@ -232,6 +226,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
             cout<<types[i];
         }
     }
+
 //========================================================================
     fflush(stdout);//Why not use the system("cls")?
                    //because it's
@@ -245,14 +240,15 @@ int Employee::selectMenu(int Size ,int *thisIndex){
         case DOWN: if(*thisIndex<Size -2) *thisIndex += 2; break;
         case LEFT:if(*thisIndex>=10) *thisIndex -= 10;break;
         case RIGHT:if(*thisIndex<20) *thisIndex += 10;break;
-        case SPACE:return 32;break;
-        case ENTER:return 13;break;
-        case ESC:return 27;break;
-        case TAB:return 9;break;
+        case SPACE:return SPACE;break;
+        case ENTER:return ENTER;break;
+        case ESC:return ESC;break;
+        case TAB:return TAB;break;
 //Idea : to make a effect of rebacking
     }
     return 0;
 }
+
 void Employee::inputValue(int cou,int thisIndex){
     int wantNum;
     showStorage tag;//key step
@@ -311,8 +307,10 @@ void Employee::showAndPrintTheReceipt(){
         }
         else{
             outReceipt<<"\n\n\n\t-----------------------------------------------------------------------------------------------"<<endl;
-            outReceipt<<"\tDate\t\t\t\t\t"<<sTime<<endl;
-            outReceipt<<"\tOperator\t\t\t\t\t"<<Operator.getSech()<<endl;
+            outReceipt<<"\t\t\t\t\tX X 饭 店"<<endl;
+            outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
+            outReceipt<<"\tDate\t\t\t\t\t\t"<<sTime<<endl;
+            outReceipt<<"\tOperator\t\t\t\t\t\t"<<Operator.getSech()<<endl;
             outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
             outReceipt<<"\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
             outReceipt<<"\t-----------------------------------------------------------------------------------------------"<<endl;
@@ -320,7 +318,7 @@ void Employee::showAndPrintTheReceipt(){
                 outReceipt<<"\n\n\t"<<sStorage[i].sName<<"\t\t\t\t\t"<<sStorage[i].sCopies<<"\t\t"<<sStorage[i].sPrice;
             }
             outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
-            outReceipt<<"\n\t         \t\t\t\t\tAllNumber\tTotal Amount";
+            outReceipt<<"\n\t\t\t\t\t\tAllNumber\tTotal Amount";
             outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
             outReceipt<<"\n\tTotal : \t\t\t\t\t"<<AllNum<<"\t\t"<<fixed<<setprecision(1)<<AllPrice<<endl;
             outReceipt<<"\n\t-----------------------------------------------------------------------------------------------"<<endl;
@@ -352,14 +350,13 @@ string Employee::getPresentTime(){
 }
 
 //-------------------------------------------------------------------------------------------------mark
-
 CONSOLE_CURSOR_INFO fff;//flashCursor
-
 
 void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
     int Size = 30;
+
     int cou = 1;
 
     HANDLE hOut;
@@ -382,6 +379,7 @@ void Employee::theEmployeeSystem(){
             SetConsoleTextAttribute(hOut,07);
             break;
         }
+
         if(sele == SPACE){
             pos.X = 5;
             pos.Y = 17;
@@ -465,15 +463,110 @@ void Employee::theEmployeeSystem(){
                 }
             }
         }
-
-
-
     }
 }
 
+//===================================================================================================================================
+
+//=======================================================The master's system=========================================================
+COORD zos{0,0};
+
+void Master::showTheVersion(HANDLE xOut,string *options,int optionNum,int thatIndex){
+    system("cls");
+
+    SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);
+    zos.X = 15;
+    zos.Y = 2;
+    SetConsoleCursorPosition(xOut,zos);
+    cout<<MTITLE;
+
+    SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);
+    zos.X = 15;
+    zos.Y = 17;
+    SetConsoleCursorPosition(xOut,zos);
+    cout<<FOOT;
+
+    for(int i=0 ; i<optionNum ; i+=2){
+        if(i == thatIndex){
+            SetConsoleTextAttribute(xOut,FOREGROUND_RED|0x8);
+            zos.X = 50;
+            zos.Y = 5 + i;
+            SetConsoleCursorPosition(xOut,zos);
+            cout<<"=>  "<<options[i];
+        }
+        else{
+            SetConsoleTextAttribute(xOut,FOREGROUND_BLUE|0x8);
+            zos.X = 50;
+            zos.Y = 5 + i;
+            SetConsoleCursorPosition(xOut,zos);
+            cout<<options[i];
+        }
+
+    }
+    fflush(stdout);
+
+}
+
+int Master::select(int optionNum,int *thatIndex){
+    int cch;
+    cch = getch();
+    switch(cch){
+        case UP_:if(*thatIndex>0) *thatIndex-=2;break;
+        case DOWN_:if(*thatIndex<optionNum-2) *thatIndex+=2;break;
+        case ENTER_:return 13;break;
+        case ESC_:return 27;break;
+    }
+}
+
+//void Master::addMember(){
+//
+//}
+//void Master::deleteMember(){
+//
+//}
+//void Master::changeMember(){
+//
+//}
+//void Master::findMember(){
+//
+//}
+
+CONSOLE_CURSOR_INFO vvv;
+
+void Master::theMasterSystem(){
+    int thatIndex = 0;
+    int optionNum = 10;
+    int mark ;
+    int opo = 1;
+
+    HANDLE xOut;
+
+    xOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    SetConsoleTitle(MSYS);
+
+    GetConsoleCursorInfo(xOut,&vvv);
+    vvv.bVisible = 0;
+    SetConsoleCursorInfo(xOut,&vvv);
+
+    while(true){
+        showTheVersion(xOut,options,optionNum,thatIndex);
+        opo = select(optionNum,&thatIndex);
+        if(opo == ESC_){
+            system("cls");
+            cout<<"\n\n\n\t\t\t>>>>>>>>>>>>>>   This system is stop!  <<<<<<<<<<<<<<\n\n\n\n";
+            SetConsoleTextAttribute(xOut,07);
+            break;
+        }
+        if(opo == ENTER_){
+
+        }
+
+    }
 
 
 
+}
 
 
 

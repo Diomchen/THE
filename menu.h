@@ -31,8 +31,6 @@ public:
 class Employee
 {
 private:
-
-
     enum
     {
         UP = 72,
@@ -50,7 +48,6 @@ private:
         std::string name;
         int price;
     };
-
 
     storage kind[30]{
         {"苹果饭",10},{},
@@ -124,6 +121,47 @@ public:
 
 };
 
+
+//Master
+class Master{
+
+private:
+    enum{
+        UP_ = 72,
+        DOWN_ = 80,
+        ENTER_ = 13,
+        ESC_ = 27
+    };
+
+    std::string options[10] = {
+        "注册新员工",
+        " ",
+        "注销员工",
+        " ",
+        "更改员工密码",
+        " ",
+        "查询员工当前总业绩",
+        " ",
+        "查询当前店铺总业绩",
+        " ",
+    };
+
+
+
+public:
+    void theMasterSystem();
+    void showTheVersion(HANDLE xOut,std::string *options,int optionNum,int thatIndex);
+    int select(int optionNum,int *thatIndex);
+    void addMember();
+    void deleteMember();
+    void changeMember();
+    void findMember();
+
+
+
+
+
+};
 
 
 
