@@ -21,6 +21,7 @@ public:
     std::string getSech(){
         return serchStr;
     };
+
     void login();
     void isGoOn();
     void select();
@@ -76,6 +77,14 @@ private:
 
     std::vector<showStorage> sStorage;
 
+    struct EmpD{
+        std::string EmpNu;
+        std::string EmpPa;
+        int EmpSa;
+    };
+
+    std::vector<EmpD> empd;
+
     std::string types[30]=
     {
             "    Æ»¹û·¹ 10£¤",
@@ -111,7 +120,8 @@ private:
     };
 
 public:
-    void  theEmployeeSystem();
+    void readEmployeeD();
+    void theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);
     void inputValue(int cou,int thisIndex);
@@ -160,6 +170,7 @@ private:
 public:
     void theMasterSystem();
     void readEmployeeDetail();
+    void catchMoney();
     void showTheVersion(HANDLE xOut,std::string *options,int optionNum,int thatIndex);
     int select(int optionNum,int *thatIndex);
     void addMember();

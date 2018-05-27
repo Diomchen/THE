@@ -24,10 +24,6 @@ using namespace std;
 
 string LogIn::serchStr = "\0";
 
-
-
-
-
 //=======================================================logIn
 
 void LogIn::isGoOn()
@@ -237,6 +233,38 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
                    //because it's
 }
 
+void Employee::readEmployeeD(){
+    string empN;
+    string empP;
+    string empS;
+    int intempS;
+    EmpD empMidObj;
+
+    ifstream inEMPfile("employeeCountInformation.txt");
+    if(!inEMPfile.is_open()){
+        cout<<"Open is failure!";
+        Sleep(3000);
+        exit(0);
+    }
+    else{
+        while(!inEMPfile.eof()){
+            inEMPfile>>empN;
+            empMidObj.EmpNu = empN;
+
+            inEMPfile>>empP;
+            empMidObj.EmpPa = empP;
+
+            inEMPfile>>empS;
+            intempS = str2num(empS);
+            empMidObj.EmpSa = intempS;
+
+            empd.push_back(empMidObj);
+        }
+    }
+    inEMPfile.close();
+
+}
+
 int Employee::selectMenu(int Size ,int *thisIndex){
     int ch;
     ch = getch();
@@ -277,8 +305,9 @@ void Employee::showAndPrintTheReceipt(){
     int AllNum = 0;
     char ch;
     LogIn Operator;
-
     string sTime = getPresentTime();
+
+
     HANDLE sOut;
     sOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -286,6 +315,26 @@ void Employee::showAndPrintTheReceipt(){
         AllPrice += sStorage[i].sPrice;
         AllNum += sStorage[i].sCopies;
     }
+
+    for(int i=0 ; i<(int)empd.size() ; i++){
+        if(Operator.getSech() == empd[i].EmpNu){
+            empd[i].EmpSa += (int)AllPrice;
+            break;
+        }
+    }
+
+    ofstream outEMPDfile("employeeCountInformation.txt",ios::trunc);
+    if(!outEMPDfile.is_open()){
+        exit(0);
+    }
+    else{
+        for(int i=0 ; i<(int)empd.size() ; i++){
+            outEMPDfile<<empd[i].EmpNu<<endl;
+            outEMPDfile<<empd[i].EmpPa<<endl;
+            outEMPDfile<<empd[i].EmpSa<<endl;
+        }
+    }
+    outEMPDfile.close();
 //----------------------------------------------------------------------------------------------------------------------------mark
     cout<<"\n\n\tOperator  :  "<<Operator.getSech()<<endl;
 
@@ -360,7 +409,6 @@ void Employee::theEmployeeSystem(){
     int sele;
     int thisIndex = 0;
     int Size = 30;
-
     int cou = 1;
 
     HANDLE hOut;
@@ -373,6 +421,8 @@ void Employee::theEmployeeSystem(){
     fff.bVisible = 0;//set this cursor disappear
 
     SetConsoleCursorInfo(hOut,&fff);//set cursor
+
+    readEmployeeD();
 
     while(true){
         showTheMenu(hOut,types,Size,thisIndex);
@@ -615,6 +665,7 @@ void Master::addMember(){
     cout<<"\n\n\t\t\tYou must remember them in 15s!!";
     Sleep(15000);
 }
+
 void Master::deleteMember(){
     system("cls");
 
@@ -665,6 +716,7 @@ void Master::deleteMember(){
         }
     }
 }
+
 void Master::changeMember(){
     system("cls");
 
@@ -713,9 +765,11 @@ void Master::changeMember(){
         Sleep(2000);
     }
 }
+
 void Master::findMember(){
 
 }
+
 void Master::annualSummary(){
 
 }
