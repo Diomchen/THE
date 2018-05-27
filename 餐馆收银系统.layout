@@ -9,7 +9,7 @@
 	</File>
 	<File name="orglCode.cc" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="23361" topLine="53" />
+			<Cursor1 position="23361" topLine="78" />
 		</Cursor>
 		<Folding>
 			<Collapse line="36" />
@@ -23,26 +23,23 @@
 			<Collapse line="301" />
 			<Collapse line="394" />
 			<Collapse line="407" />
-			<Collapse line="426" />
 			<Collapse line="535" />
 			<Collapse line="571" />
 			<Collapse line="583" />
 			<Collapse line="614" />
 			<Collapse line="668" />
 			<Collapse line="719" />
-			<Collapse line="778" />
-			<Collapse line="820" />
-			<Collapse line="827" />
 		</Folding>
 	</File>
 	<File name="menu.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2584" topLine="24" />
+			<Cursor1 position="2584" topLine="21" />
 		</Cursor>
 		<Folding>
+			<Collapse line="14" />
+			<Collapse line="20" />
+			<Collapse line="33" />
 			<Collapse line="53" />
-			<Collapse line="88" />
-			<Collapse line="154" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

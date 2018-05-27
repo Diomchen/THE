@@ -767,7 +767,11 @@ void Master::changeMember(){
 }
 
 void Master::findMember(){
+    system("cls");
 
+    cout<<"\n\n\t\t\t------------------查询员工当前总业绩------------------";
+
+    Sleep(6000);
 }
 
 void Master::annualSummary(){
@@ -808,7 +812,7 @@ void Master::theMasterSystem(){
                 case 0:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);addMember();break;
                 case 2:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);deleteMember();break;
                 case 4:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);changeMember();break;
-                case 6:findMember();break;
+                case 6:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);findMember();break;
                 case 8:annualSummary();break;
             }
         }
