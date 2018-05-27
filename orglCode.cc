@@ -9,6 +9,7 @@
 #include <conio.h>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 #define ESYS "Employee System"
 #define MSYS "Master System"
@@ -22,6 +23,10 @@
 using namespace std;
 
 string LogIn::serchStr = "\0";
+
+
+
+
 
 //=======================================================logIn
 
@@ -74,7 +79,7 @@ void LogIn::login()
 }
 
 bool LogIn::verifyingEmp(string userN,string passW){
-    fstream File("employeeCountInformation.txt",ios::app);
+//    fstream File("employeeCountInformation.txt");
     ifstream inFile;
     string serchO,serchT;
     inFile.open("employeeCountInformation.txt",ios::in);
@@ -96,13 +101,13 @@ bool LogIn::verifyingEmp(string userN,string passW){
         }
     }
     inFile.close();
-    File.close();
+//    File.close();
 
     return false;
 }
 
 bool LogIn::verifyingMas(string userN,string passW){
-    fstream File("masterCountInformation.txt",ios::app);
+//    fstream File("masterCountInformation.txt");
     ifstream inFile;
     string serchO,serchT;
     inFile.open("masterCountInformation.txt",ios::in);
@@ -124,7 +129,7 @@ bool LogIn::verifyingMas(string userN,string passW){
         }
     }
     inFile.close();
-    File.close();
+//    File.close();
 
     return false;
 }
@@ -349,7 +354,6 @@ string Employee::getPresentTime(){
 
 }
 
-//-------------------------------------------------------------------------------------------------mark
 CONSOLE_CURSOR_INFO fff;//flashCursor
 
 void Employee::theEmployeeSystem(){
@@ -468,6 +472,14 @@ void Employee::theEmployeeSystem(){
 
 //===================================================================================================================================
 
+
+
+
+
+
+
+
+
 //=======================================================The master's system=========================================================
 COORD zos{0,0};
 
@@ -489,14 +501,14 @@ void Master::showTheVersion(HANDLE xOut,string *options,int optionNum,int thatIn
     for(int i=0 ; i<optionNum ; i+=2){
         if(i == thatIndex){
             SetConsoleTextAttribute(xOut,FOREGROUND_RED|0x8);
-            zos.X = 50;
+            zos.X = 48;
             zos.Y = 5 + i;
             SetConsoleCursorPosition(xOut,zos);
-            cout<<"=>  "<<options[i];
+            cout<<"=>   "<<options[i];
         }
         else{
             SetConsoleTextAttribute(xOut,FOREGROUND_BLUE|0x8);
-            zos.X = 50;
+            zos.X = 48;
             zos.Y = 5 + i;
             SetConsoleCursorPosition(xOut,zos);
             cout<<options[i];
@@ -513,30 +525,206 @@ int Master::select(int optionNum,int *thatIndex){
     switch(cch){
         case UP_:if(*thatIndex>0) *thatIndex-=2;break;
         case DOWN_:if(*thatIndex<optionNum-2) *thatIndex+=2;break;
-        case ENTER_:return 13;break;
-        case ESC_:return 27;break;
+        case ENTER_:return ENTER_;break;
+        case ESC_:return ESC_;break;
     }
+    return 0;
 }
 
-//void Master::addMember(){
-//
-//}
-//void Master::deleteMember(){
-//
-//}
-//void Master::changeMember(){
-//
-//}
-//void Master::findMember(){
-//
-//}
+void Master::readEmployeeDetail(){
+    string empN;
+    string empP;
+    string empS;
+    int intempS;
+    EmpDetail empMidObj;
+
+    ifstream inEMPfile("employeeCountInformation.txt");
+    if(!inEMPfile.is_open()){
+        cout<<"Open is failure!";
+        Sleep(3000);
+        exit(0);
+    }
+    else{
+        while(!inEMPfile.eof()){
+            inEMPfile>>empN;
+            empMidObj.EmpNum = empN;
+
+            inEMPfile>>empP;
+            empMidObj.EmpPassword = empP;
+
+            inEMPfile>>empS;
+            intempS = str2num(empS);
+            empMidObj.EmpSales = intempS;
+
+            Emp.push_back(empMidObj);
+        }
+    }
+    inEMPfile.close();
+}
+
+void Master::addMember(){
+    system("cls");
+
+    time_t timep;
+    struct tm *p;
+    time(&timep);
+    p = gmtime(&timep);
+
+    HANDLE kOut;
+    kOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    string registerPass;
+    string registerName;
+    EmpDetail newMeb;
+
+    cout<<"\n\t\t-----------------------注册新员工-----------------------";
+    cout<<"\n\n\n\t\t\t\t(用户名将自动生成)";
+    cout<<"\n\n\n\t\t\t\t请输入密码 : ";
+    cin>>registerPass;
+    registerName = num2str(1900+p->tm_year)+num2str(1+p->tm_mon)+num2str(p->tm_mday)+num2str(p->tm_hour)+num2str(p->tm_min)+num2str(p->tm_sec);
+    newMeb.EmpNum = registerName;
+    newMeb.EmpPassword = registerPass;
+    newMeb.EmpSales = 0;
+
+    Emp.push_back(newMeb);
+
+    ofstream outEMPfile("employeeCountInformation.txt",ios::app);
+    if(!outEMPfile.is_open()){
+        cout<<"WRONG!";
+        exit(0);
+    }
+    else{
+        outEMPfile<<registerName<<endl;
+        outEMPfile<<registerPass<<endl;
+        outEMPfile<<0<<endl;
+    }
+    outEMPfile.close();
+
+    cout<<"\n\n\t\t\t\t\tRegisting...";
+    Sleep(3000);
+    system("cls");
+    cout<<"\n\n\n\n\t\t\t\t\tSUCCESS!!";
+    cout<<"\n\n\n\t\t\t Your USERNAME is : ";
+    SetConsoleTextAttribute(kOut,FOREGROUND_RED|0x8);
+    cout<<registerName;
+    SetConsoleTextAttribute(kOut,FOREGROUND_GREEN|0x8);
+    cout<<"\n\n\n\t\t\t Your PASSWORD is : ";
+    SetConsoleTextAttribute(kOut,FOREGROUND_RED|0x8);
+    cout<<registerPass;
+    SetConsoleTextAttribute(kOut,FOREGROUND_GREEN|0x8);
+    cout<<"\n\n\t\t\tYou must remember them in 15s!!";
+    Sleep(15000);
+}
+void Master::deleteMember(){
+    system("cls");
+
+    HANDLE dOut;
+    dOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    string unsubscribe;
+    char en;
+    bool mid = true;
+    cout<<"\n\t\t-----------------------注销员工-----------------------";
+    cout<<"\n\n\t\t\t请输入需注销的账号 ：";
+    cin>>unsubscribe;
+
+    cout<<"\n\n\t\t\tDo you want to log out from this account?( Y / N ) : ";
+    cin>>en;
+    if('Y' == en){
+        for(int i=0 ; i<(int)Emp.size() ; i++){
+            if(unsubscribe == Emp[i].EmpNum){
+                Emp.erase(Emp.begin()+i);
+
+                ofstream outEMPfile("employeeCountInformation.txt",ios::trunc);
+                if(!outEMPfile.is_open()){
+                    cout<<"wrong!";
+                    Sleep(2000);
+                    exit(0);
+                }
+                else{
+                    for(int j=0 ; j<(int)Emp.size() ; j++){
+                        outEMPfile<<Emp[j].EmpNum<<endl;
+                        outEMPfile<<Emp[j].EmpPassword<<endl;
+                        outEMPfile<<Emp[j].EmpSales<<endl;
+                    }
+                }
+                outEMPfile.close();
+                system("cls");
+
+                cout<<"\n\n\n\n\n\t\t\t\t\t\t注销成功！";
+                Sleep(3000);
+                mid = false;
+                break;
+            }
+        }
+        if(mid){
+            system("cls");
+            SetConsoleTextAttribute(dOut,FOREGROUND_RED|0x8);
+            cout<<"\n\n\t\t\t未找到此员工！";
+            Sleep(2000);
+        }
+    }
+}
+void Master::changeMember(){
+    system("cls");
+
+    HANDLE lOut;
+    lOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    string eAccount;
+    string eAccountPass;
+    bool mid = true;
+
+    cout<<"\n\t\t-----------------------更改员工密码-----------------------";
+    cout<<"\n\n\t\t请输入员工账号 ：";
+    cin>>eAccount;
+
+    for(int i=0 ; i<(int)Emp.size() ; i++){
+        if(eAccount == Emp[i].EmpNum){
+            cout<<"\n\n\t\t请输入新密码 ：";
+            cin>>eAccountPass;
+            Emp[i].EmpPassword = eAccountPass;
+
+            ofstream outEMPfile("employeeCountInformation.txt",ios::trunc);
+            if(!outEMPfile.is_open()){
+                cout<<"wrong!";
+                Sleep(2000);
+                exit(0);
+            }
+            else{
+                for(int j=0 ; j<(int)Emp.size() ; j++){
+                    outEMPfile<<Emp[j].EmpNum<<endl;
+                    outEMPfile<<Emp[j].EmpPassword<<endl;
+                    outEMPfile<<Emp[j].EmpSales<<endl;
+                }
+            }
+            outEMPfile.close();
+            system("cls");
+            cout<<"\n\n\n\n\t\t\t\t\t修改成功!";
+            Sleep(3000);
+            mid = false;
+            break;
+        }
+    }
+    if(mid){
+        system("cls");
+        SetConsoleTextAttribute(lOut,FOREGROUND_RED|0x8);
+        cout<<"\n\n\n\n\t\t\t\t\t未找到此员工！";
+        Sleep(2000);
+    }
+}
+void Master::findMember(){
+
+}
+void Master::annualSummary(){
+
+}
 
 CONSOLE_CURSOR_INFO vvv;
 
 void Master::theMasterSystem(){
     int thatIndex = 0;
     int optionNum = 10;
-    int mark ;
     int opo = 1;
 
     HANDLE xOut;
@@ -548,8 +736,11 @@ void Master::theMasterSystem(){
     GetConsoleCursorInfo(xOut,&vvv);
     vvv.bVisible = 0;
     SetConsoleCursorInfo(xOut,&vvv);
-
+    readEmployeeDetail();//At the begining, we should read the "txt" storage,because it will be convenient for us to continue to do the other tasks
     while(true){
+
+
+
         showTheVersion(xOut,options,optionNum,thatIndex);
         opo = select(optionNum,&thatIndex);
         if(opo == ESC_){
@@ -559,18 +750,32 @@ void Master::theMasterSystem(){
             break;
         }
         if(opo == ENTER_){
-
+            switch(thatIndex){
+                case 0:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);addMember();break;
+                case 2:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);deleteMember();break;
+                case 4:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);changeMember();break;
+                case 6:findMember();break;
+                case 8:annualSummary();break;
+            }
         }
-
     }
 
 
 
 }
 
+int str2num(string s){
+    int num;
+    stringstream ss(s);
+    ss>>num;
+    return num;
+}
 
-
-
+string num2str(int i){
+    stringstream ss;
+    ss<<i;
+    return ss.str();
+}
 
 
 

@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 
 //LogIn
 class LogIn
@@ -133,6 +134,14 @@ private:
         ESC_ = 27
     };
 
+    struct EmpDetail{
+        std::string EmpNum;
+        std::string EmpPassword;
+        int EmpSales;
+    };
+
+    std::vector<EmpDetail> Emp;//rember to release their storage
+
     std::string options[10] = {
         "×¢²áÐÂÔ±¹¤",
         " ",
@@ -150,12 +159,14 @@ private:
 
 public:
     void theMasterSystem();
+    void readEmployeeDetail();
     void showTheVersion(HANDLE xOut,std::string *options,int optionNum,int thatIndex);
     int select(int optionNum,int *thatIndex);
     void addMember();
     void deleteMember();
     void changeMember();
     void findMember();
+    void annualSummary();
 
 
 
@@ -163,7 +174,8 @@ public:
 
 };
 
+int str2num(std::string s);
 
-
+std::string num2str(int i);
 
 #endif // MENU_H_

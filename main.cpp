@@ -1,10 +1,8 @@
-//Programing:the system of resterant counting
 
-//
-//
-//Date    :   2018-5-24
-//Author  :   DiomChen
-//Blog    :   https://blog.csdn.net/qq_41628088
+//Programing    :    the system of resterant managing
+//Date          :    2018-5-24
+//Author        :    DiomChen
+//Blog          :    https://blog.csdn.net/qq_41628088
 
 #include <iostream>
 #include <string>
@@ -15,6 +13,7 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
