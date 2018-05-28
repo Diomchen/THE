@@ -26,7 +26,5 @@ int main()
 
     user.select();
 
-
-
     return 0;
 }

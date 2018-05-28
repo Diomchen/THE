@@ -85,6 +85,13 @@ private:
 
     std::vector<EmpD> empd;
 
+    struct YearS{
+        int monthS = 0;
+        int wY = 0;
+    };
+
+    YearS sa[13];
+
     std::string types[30]=
     {
             "    苹果饭 10￥",
@@ -121,6 +128,7 @@ private:
 
 public:
     void readEmployeeD();
+    void readRestaurantD();//-----------------------------------------------mark;
     void theEmployeeSystem();
     void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);
@@ -152,6 +160,13 @@ private:
 
     std::vector<EmpDetail> Emp;//rember to release their storage
 
+    struct YearSale{
+        int monthSale = 0;
+        int wYear = 0;
+    };
+
+    YearSale sav[13];
+
     std::string options[10] = {
         "注册新员工",
         " ",
@@ -161,15 +176,17 @@ private:
         " ",
         "查询员工当前总业绩",
         " ",
-        "查询当前店铺总业绩",
+        "查询店铺综合情况",
         " ",
     };
 
 
 
 public:
+
     void theMasterSystem();
     void readEmployeeDetail();
+    void readRestaurantData();//--------------------------------------------------mark
     void catchMoney();
     void showTheVersion(HANDLE xOut,std::string *options,int optionNum,int thatIndex);
     int select(int optionNum,int *thatIndex);

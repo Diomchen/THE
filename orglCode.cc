@@ -26,15 +26,12 @@ string LogIn::serchStr = "\0";
 
 //=======================================================logIn
 
-void LogIn::isGoOn()
-{
+void LogIn::isGoOn(){
     if(tValue == 0)
         exit(0);
 }
 
-
-void LogIn::login()
-{
+void LogIn::login(){
     int t = 3;
     string userN,passW;
     HANDLE tOut;
@@ -130,8 +127,7 @@ bool LogIn::verifyingMas(string userN,string passW){
     return false;
 }
 
-void LogIn::select()
-{
+void LogIn::select(){
     if(symbol == "master")
     {
         //the master's system
@@ -145,6 +141,14 @@ void LogIn::select()
         A.theEmployeeSystem();
     }
 }
+
+//===================================================================================================================================
+
+
+
+
+
+
 
 //=======================================================The employees' system=======================================================
 
@@ -262,7 +266,38 @@ void Employee::readEmployeeD(){
         }
     }
     inEMPfile.close();
+}
 
+void Employee::readRestaurantD(){
+    string mSale;
+    string year;
+    int j = 1;
+
+    time_t timep;
+    struct tm *p;
+    time(&timep);
+    p = gmtime(&timep);
+
+    ifstream inRfile("restaurantData.txt");
+    if(!inRfile.is_open()){
+        exit(0);
+    }
+    else{
+        while(!inRfile.eof()){
+            inRfile>>mSale;
+            sa[j].monthS = str2num(mSale);
+            inRfile>>year;
+            sa[j].wY = str2num(year);
+        }
+
+        if(str2num(year)!=(1900+p->tm_year)){
+            for(int i=1 ; i<13 ; i++){
+                sa[i].monthS = 0;
+                sa[i].wY = (1900+p->tm_year);
+           }
+        }
+    }
+    inRfile.close();
 }
 
 int Employee::selectMenu(int Size ,int *thisIndex){
@@ -328,7 +363,7 @@ void Employee::showAndPrintTheReceipt(){
         exit(0);
     }
     else{
-        for(int i=0 ; i<(int)empd.size() ; i++){
+        for(int i=0 ; i<(int)empd.size()-1; i++){
             outEMPDfile<<empd[i].EmpNu<<endl;
             outEMPDfile<<empd[i].EmpPa<<endl;
             outEMPDfile<<empd[i].EmpSa<<endl;
@@ -612,6 +647,38 @@ void Master::readEmployeeDetail(){
     inEMPfile.close();
 }
 
+void Master::readRestaurantData(){
+    string mSale;
+    string year;
+    int j = 1;
+
+    time_t timep;
+    struct tm *p;
+    time(&timep);
+    p = gmtime(&timep);
+
+    ifstream inRESfile("restaurantData.txt");
+    if(!inRESfile.is_open()){
+        exit(0);
+    }
+    else{
+        while(!inRESfile.eof()){
+            inRESfile>>mSale;
+            sav[j].monthSale = str2num(mSale);
+            inRESfile>>year;
+            sav[j].wYear = str2num(year);
+        }
+
+        if(str2num(year)!=(1900+p->tm_year)){
+            for(int i=1 ; i<13 ; i++){
+                sav[i].monthSale = 0;
+                sav[i].wYear = (1900+p->tm_year);
+           }
+        }
+    }
+    inRESfile.close();
+}
+
 void Master::addMember(){
     system("cls");
 
@@ -693,7 +760,7 @@ void Master::deleteMember(){
                     exit(0);
                 }
                 else{
-                    for(int j=0 ; j<(int)Emp.size() ; j++){
+                    for(int j=0 ; j<(int)Emp.size()-1 ; j++){
                         outEMPfile<<Emp[j].EmpNum<<endl;
                         outEMPfile<<Emp[j].EmpPassword<<endl;
                         outEMPfile<<Emp[j].EmpSales<<endl;
@@ -701,7 +768,7 @@ void Master::deleteMember(){
                 }
                 outEMPfile.close();
                 system("cls");
-
+                cout<<Emp.size();
                 cout<<"\n\n\n\n\n\t\t\t\t\t\t注销成功！";
                 Sleep(3000);
                 mid = false;
@@ -769,12 +836,105 @@ void Master::changeMember(){
 void Master::findMember(){
     system("cls");
 
-    cout<<"\n\n\t\t\t------------------查询员工当前总业绩------------------";
+    HANDLE mOut;
+    mOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    Sleep(6000);
+    string EmpAccount;
+    string one,two;
+    string curentAchive;
+    bool mark = true;
+
+    cout<<"\n\n\t\t\t----------------------查询员工当前总业绩----------------------";
+    cout<<"\n\n\n\t\t\t\t\t\t请输入员工账号：";
+    cin>>EmpAccount;
+    ifstream inEMPfile("employeeCountInformation.txt");
+    if(!inEMPfile.is_open()){
+        exit(0);
+    }
+    else{
+        for(int i=0 ; i<(int)Emp.size() ; i++){
+            if(EmpAccount == Emp[i].EmpNum){
+                inEMPfile>>one;
+                inEMPfile>>two;
+                inEMPfile>>curentAchive;
+                mark = false;
+                break;
+            }
+        }
+        if(mark){
+            system("cls");
+            SetConsoleTextAttribute(mOut,FOREGROUND_RED|0x8);
+            cout<<"\n\n\t\t\t未找到此员工！";
+            Sleep(2000);
+        }
+    }
+    inEMPfile.close();
+    if(!mark){
+        cout<<"\n\n\t\t\t\t\t\t此员工当前业绩："<<curentAchive;
+        cout<<"\n\n\n\t\t\t\t\t\t5s后返回主菜单";
+        Sleep(5000);
+    }
 }
 
 void Master::annualSummary(){
+    system("cls");
+
+    time_t timep;
+    struct tm *p;
+    time(&timep);
+    p = gmtime(&timep);
+
+    HANDLE uOut;
+    uOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int j;
+    int mid =-1;
+    cout<<"\n\n\t\t\t----------------------查询店铺综合情况----------------------";
+    cout<<"\n\n\n\t=====================================   全体员工数据一览   ======================================\n\n\n";
+    SetConsoleTextAttribute(uOut,07);
+    for(int i=0 ; i<(int)Emp.size()-1 ; i++ ){
+        cout<<"\n\n\t\t"<<string(35,'+')<<"     |     "<<string(35,'+');
+        cout<<"\n\t\t\t\t\t\t\t|\n\t\t员工账号："<<Emp[i].EmpNum<<"\t\t\t|";
+
+        i++;
+        if(i>=(int)Emp.size()-1){
+            cout<<"\n\t\t\t\t\t\t\t|\n\t\t销售量："<<Emp[i-1].EmpSales;
+            break;
+        }
+        else{
+            cout<<"\t员工账号："<<Emp[i].EmpNum;
+            cout<<"\n\t\t\t\t\t\t\t|\n\t\t销售量："<<Emp[i-1].EmpSales<<"\t\t\t\t|"<<"\t销售量："<<Emp[i].EmpSales;
+        }
+    }
+    cout<<"\n\n";
+    SetConsoleTextAttribute(uOut,FOREGROUND_RED|0x8);
+    for(int i=0 ; i<(int)Emp.size()-1 ; i++){
+        if(Emp[i].EmpSales>mid){
+            mid = Emp[i].EmpSales;
+            j = i;
+        }
+    }
+
+    cout<<"\n\n\t\t"<<"   "<<string(24,'*')<<string(8,' ')<<"销 售 之 星"<<string(8,' ')<<string(24,'*');
+    cout<<"\n\n\t\t"<<"         "<<string(18,'*')<<string(9,' ')<<Emp[j].EmpNum<<string(10,' ')<<string(18,'*');
+    cout<<"\n\n\t\t\t"<<"       "<<string(12,'*')<<string(8,' ')<<"个 人 销 额"<<string(8,' ')<<string(12,'*');
+    cout<<"\n\n\t\t\t\t"<<"     "<<string(6,'*')<<string(11,' ')<<mid<<string(11,' ')<<string(6,'*');
+
+    SetConsoleTextAttribute(uOut,FOREGROUND_GREEN|0x8);
+    cout<<"\n\n\n\t=============================================================================================\n";
+
+    cout<<"\n\t===================================   公司"<<1900+p->tm_year<<"年度数据一览   ====================================\n";
+
+
+
+
+
+    cout<<"\n\n\n\t=============================================================================================\n";
+    Sleep(10000);
+
+
+
+
 
 }
 
@@ -794,11 +954,10 @@ void Master::theMasterSystem(){
     GetConsoleCursorInfo(xOut,&vvv);
     vvv.bVisible = 0;
     SetConsoleCursorInfo(xOut,&vvv);
+
     readEmployeeDetail();//At the begining, we should read the "txt" storage,because it will be convenient for us to continue to do the other tasks
+
     while(true){
-
-
-
         showTheVersion(xOut,options,optionNum,thatIndex);
         opo = select(optionNum,&thatIndex);
         if(opo == ESC_){
@@ -813,7 +972,7 @@ void Master::theMasterSystem(){
                 case 2:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);deleteMember();break;
                 case 4:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);changeMember();break;
                 case 6:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);findMember();break;
-                case 8:annualSummary();break;
+                case 8:SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);annualSummary();break;
             }
         }
     }
