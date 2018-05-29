@@ -288,6 +288,8 @@ void Employee::readRestaurantD(){
             sa[j].monthS = str2num(mSale);
             inRfile>>year;
             sa[j].wY = str2num(year);
+            j++;
+            if(13 == j)break;
         }
 
         if(str2num(year)!=(1900+p->tm_year)){
@@ -338,10 +340,15 @@ void Employee::showAndPrintTheReceipt(){
 
     double AllPrice = 0;
     int AllNum = 0;
+
     char ch;
     LogIn Operator;
     string sTime = getPresentTime();
 
+    time_t timep;
+    struct tm *p;
+    time(&timep);
+    p = gmtime(&timep);
 
     HANDLE sOut;
     sOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -350,6 +357,8 @@ void Employee::showAndPrintTheReceipt(){
         AllPrice += sStorage[i].sPrice;
         AllNum += sStorage[i].sCopies;
     }
+
+    sa[p->tm_mon+1].monthS += (int)AllPrice;
 
     for(int i=0 ; i<(int)empd.size() ; i++){
         if(Operator.getSech() == empd[i].EmpNu){
@@ -370,6 +379,19 @@ void Employee::showAndPrintTheReceipt(){
         }
     }
     outEMPDfile.close();
+
+    ofstream outRfile("restaurantData.txt");
+    if(!outRfile.is_open()){
+        exit(0);
+    }
+    else{
+        for(int i=1 ; i<13 ; i++){
+            outRfile<<sa[i].monthS<<endl;
+            outRfile<<sa[i].wY<<endl;
+        }
+    }
+    outRfile.close();
+
 //----------------------------------------------------------------------------------------------------------------------------mark
     cout<<"\n\n\tOperator  :  "<<Operator.getSech()<<endl;
 
@@ -457,9 +479,12 @@ void Employee::theEmployeeSystem(){
 
     SetConsoleCursorInfo(hOut,&fff);//set cursor
 
+    readRestaurantD();
+
     readEmployeeD();
 
     while(true){
+        readRestaurantD();
         showTheMenu(hOut,types,Size,thisIndex);
         sele = selectMenu(Size, &thisIndex);
         if(sele == ESC){
@@ -842,6 +867,7 @@ void Master::findMember(){
     string EmpAccount;
     string one,two;
     string curentAchive;
+    int j=0;
     bool mark = true;
 
     cout<<"\n\n\t\t\t----------------------查询员工当前总业绩----------------------";
@@ -852,14 +878,15 @@ void Master::findMember(){
         exit(0);
     }
     else{
-        for(int i=0 ; i<(int)Emp.size() ; i++){
-            if(EmpAccount == Emp[i].EmpNum){
+        while(!inEMPfile.eof()){
+            inEMPfile>>curentAchive;
+            if(EmpAccount == curentAchive){
                 inEMPfile>>one;
                 inEMPfile>>two;
-                inEMPfile>>curentAchive;
                 mark = false;
                 break;
             }
+            j++;
         }
         if(mark){
             system("cls");
@@ -870,9 +897,9 @@ void Master::findMember(){
     }
     inEMPfile.close();
     if(!mark){
-        cout<<"\n\n\t\t\t\t\t\t此员工当前业绩："<<curentAchive;
-        cout<<"\n\n\n\t\t\t\t\t\t5s后返回主菜单";
-        Sleep(5000);
+        cout<<"\n\n\t\t\t\t\t\t此员工当前业绩："<<two;
+        cout<<"\n\n\n\t\t\t\t\t\t3s后返回主菜单";
+        Sleep(3000);
     }
 }
 
@@ -954,8 +981,8 @@ void Master::theMasterSystem(){
     GetConsoleCursorInfo(xOut,&vvv);
     vvv.bVisible = 0;
     SetConsoleCursorInfo(xOut,&vvv);
-
-    readEmployeeDetail();//At the begining, we should read the "txt" storage,because it will be convenient for us to continue to do the other tasks
+    readEmployeeDetail();
+    //At the begining, we should read the "txt" storage,because it will be convenient for us to continue to do the other tasks
 
     while(true){
         showTheVersion(xOut,options,optionNum,thatIndex);

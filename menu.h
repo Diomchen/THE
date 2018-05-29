@@ -86,8 +86,8 @@ private:
     std::vector<EmpD> empd;
 
     struct YearS{
-        int monthS = 0;
-        int wY = 0;
+        int monthS ;
+        int wY;
     };
 
     YearS sa[13];
@@ -161,8 +161,8 @@ private:
     std::vector<EmpDetail> Emp;//rember to release their storage
 
     struct YearSale{
-        int monthSale = 0;
-        int wYear = 0;
+        int monthSale;
+        int wYear;
     };
 
     YearSale sav[13];
