@@ -10,6 +10,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
 #define ESYS "Employee System"
 #define MSYS "Master System"
@@ -72,9 +73,9 @@ void LogIn::login(){
 }
 
 bool LogIn::verifyingEmp(string userN,string passW){
-//    fstream File("employeeCountInformation.txt");
     ifstream inFile;
     string serchO,serchT;
+
     inFile.open("employeeCountInformation.txt",ios::in);
     if(!inFile.is_open()){
         return false;
@@ -94,13 +95,12 @@ bool LogIn::verifyingEmp(string userN,string passW){
         }
     }
     inFile.close();
-//    File.close();
 
     return false;
 }
 
 bool LogIn::verifyingMas(string userN,string passW){
-//    fstream File("masterCountInformation.txt");
+
     ifstream inFile;
     string serchO,serchT;
     inFile.open("masterCountInformation.txt",ios::in);
@@ -122,7 +122,6 @@ bool LogIn::verifyingMas(string userN,string passW){
         }
     }
     inFile.close();
-//    File.close();
 
     return false;
 }
@@ -231,10 +230,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
             cout<<types[i];
         }
     }
-
-//========================================================================
-    fflush(stdout);//Why not use the system("cls")?
-                   //because it's
+    fflush(stdout);
 }
 
 void Employee::readEmployeeD(){
@@ -692,6 +688,8 @@ void Master::readRestaurantData(){
             sav[j].monthSale = str2num(mSale);
             inRESfile>>year;
             sav[j].wYear = str2num(year);
+            j++;
+            if(13 == j)break;
         }
 
         if(str2num(year)!=(1900+p->tm_year)){
@@ -903,6 +901,8 @@ void Master::findMember(){
     }
 }
 
+COORD gos = {0,30};
+
 void Master::annualSummary(){
     system("cls");
 
@@ -949,20 +949,62 @@ void Master::annualSummary(){
 
     SetConsoleTextAttribute(uOut,FOREGROUND_GREEN|0x8);
     cout<<"\n\n\n\t=============================================================================================\n";
+//=========================================================================================================================================
 
-    cout<<"\n\t===================================   公司"<<1900+p->tm_year<<"年度数据一览   ====================================\n";
+    int star[13] = {0};
+    int lid = -1;
+    int k = 0;
+    int t = 1;
+    double allSale = 0;
+    for(int i=1 ; i<13 ; i++){
+        star[i] = ceil(sav[i].monthSale/240);
+        if(lid<sav[i].monthSale){
+            lid = sav[i].monthSale;
+            k = i;
+        }
+        allSale += sav[i].monthSale;
+    }
+    cout<<"\n\t===================================   餐馆"<<1900+p->tm_year<<"年度数据一览   ====================================\n";
+
+    SetConsoleTextAttribute(uOut,07);
+    cout<<"\n\n\n\n\t\t"<<string(22,' ')<<"5k"<<string(21,' ')<<"10k"<<"   月销售额";
+    cout<<"\n\t\t"<<string(50,'-')<<">";
+    for(int i=1 ; i<13 ; i++){
+            cout<<"\n\t"<<i<<"月 "<<"\t|"<<string(star[i],'*');
+            cout<<"\n\t\t|";
+    }
+    cout<<"\n\t\tV";
 
 
+    for(int i=0 ; i<25 ; i++){
+        gos.X = 68;
+        gos.Y = 48+i;
+        if(t == k&&i%2!=0){
+            SetConsoleTextAttribute(uOut,FOREGROUND_RED|0x8);
+            cout<<"<-"<<sav[t].monthSale;
+            SetConsoleTextAttribute(uOut,07);
+            t++;
+        }
+        else if(t!=k && i%2!=0){
+            cout<<"<-"<<sav[t].monthSale;
+            t++;
+        }
+        else{
+            cout<<" ";
+        }
+        SetConsoleCursorPosition(uOut,gos);
+    }
 
+    SetConsoleTextAttribute(uOut,FOREGROUND_RED|0x8);
+    cout<<"\n\n\t\t销额最高月份： "<<k<<"月"<<"\t销售额： "<<sav[k].monthSale<<"\n\n\t\t"<<"全年总销额："<<fixed<<setprecision(2)<<allSale;
 
-
+    SetConsoleTextAttribute(uOut,FOREGROUND_GREEN|0x8);
+    gos.X = 0;
+    gos.Y = 75;
+    SetConsoleCursorPosition(uOut,gos);
     cout<<"\n\n\n\t=============================================================================================\n";
-    Sleep(10000);
-
-
-
-
-
+    fflush(stdout);
+    getch();
 }
 
 CONSOLE_CURSOR_INFO vvv;
@@ -980,11 +1022,17 @@ void Master::theMasterSystem(){
 
     GetConsoleCursorInfo(xOut,&vvv);
     vvv.bVisible = 0;
+
     SetConsoleCursorInfo(xOut,&vvv);
+
     readEmployeeDetail();
+
+    readRestaurantData();
     //At the begining, we should read the "txt" storage,because it will be convenient for us to continue to do the other tasks
 
     while(true){
+        readRestaurantData();
+
         showTheVersion(xOut,options,optionNum,thatIndex);
         opo = select(optionNum,&thatIndex);
         if(opo == ESC_){
