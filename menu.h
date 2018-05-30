@@ -129,15 +129,15 @@ private:
 
 public:
     void readEmployeeD();
-    void readRestaurantD();//-----------------------------------------------mark;
+    void readRestaurantD();
     void theEmployeeSystem();
-    void showTheMenu(HANDLE hOut,std::string *types,int Size,int thisIndex);
+    void showTheMenu(std::string *types,int Size,int thisIndex);
     int  selectMenu(int Size,int *thisIndex);
     void inputValue(int cou,int thisIndex);
     void showAndPrintTheReceipt();
     std::string getPresentTime();
 
-//    void showTheMenuDetails();   //there is a good idea to perfect the program.
+//    void showTheMenuDetails();
 
 };
 
@@ -159,7 +159,7 @@ private:
         int EmpSales;
     };
 
-    std::vector<EmpDetail> Emp;//rember to release their storage
+    std::vector<EmpDetail> Emp;
 
     struct YearSale{
         int monthSale;
@@ -189,7 +189,7 @@ public:
     void readEmployeeDetail();
     void readRestaurantData();//--------------------------------------------------mark
     void catchMoney();
-    void showTheVersion(HANDLE xOut,std::string *options,int optionNum,int thatIndex);
+    void showTheVersion(std::string *options,int optionNum,int thatIndex);
     int select(int optionNum,int *thatIndex);
     void addMember();
     void deleteMember();

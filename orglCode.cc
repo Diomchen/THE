@@ -49,7 +49,7 @@ void LogIn::login(){
         if(verifyingMas(userN,passW))
         {
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
-            cout<<"\n\n\t\tLog in...";
+            cout<<"\n\n\t\tLogging in...";
             symbol = "master";
             Sleep(1*1000);
             system("cls");
@@ -59,7 +59,7 @@ void LogIn::login(){
         {
             serchStr = userN;
             SetConsoleTextAttribute(tOut,FOREGROUND_GREEN|0X8);
-            cout<<"\n\n\t\tLog in...";
+            cout<<"\n\n\t\tLogging in...";
             symbol = "employee";
             Sleep(3*1000);
             system("cls");
@@ -153,9 +153,12 @@ void LogIn::select(){
 
 COORD pos = {0,0};//define the begin pos
 
-void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
+void Employee::showTheMenu(string *types,int Size,int thisIndex){
 
 //    int i;
+    HANDLE hOut;
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
     system("cls");
 
     SetConsoleTextAttribute(hOut,FOREGROUND_GREEN|0x8);//get the 'TITLE'
@@ -213,7 +216,7 @@ void Employee::showTheMenu(HANDLE hOut,string *types,int Size,int thisIndex){
             cout<<"=>"<<types[i];
         }
         else{
-            SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x8);
+            SetConsoleTextAttribute(hOut,FOREGROUND_BLUE|0x0b);
             if(i>=0&&i<10){
                 pos.X = 5;
                 pos.Y = 5+i;
@@ -388,7 +391,6 @@ void Employee::showAndPrintTheReceipt(){
     }
     outRfile.close();
 
-//----------------------------------------------------------------------------------------------------------------------------mark
     cout<<"\n\n\tOperator  :  "<<Operator.getSech()<<endl;
 
     cout<<"\n\tCommodity\t\t\t\tNumber\t\tSubtotal"<<endl;
@@ -481,7 +483,7 @@ void Employee::theEmployeeSystem(){
 
     while(true){
         readRestaurantD();
-        showTheMenu(hOut,types,Size,thisIndex);
+        showTheMenu(types,Size,thisIndex);
         sele = selectMenu(Size, &thisIndex);
         if(sele == ESC){
             system("cls");
@@ -589,8 +591,11 @@ void Employee::theEmployeeSystem(){
 //=======================================================The master's system=========================================================
 COORD zos{0,0};
 
-void Master::showTheVersion(HANDLE xOut,string *options,int optionNum,int thatIndex){
+void Master::showTheVersion(string *options,int optionNum,int thatIndex){
     system("cls");
+
+    HANDLE xOut;
+    xOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
     SetConsoleTextAttribute(xOut,FOREGROUND_GREEN|0x8);
     zos.X = 15;
@@ -613,7 +618,7 @@ void Master::showTheVersion(HANDLE xOut,string *options,int optionNum,int thatIn
             cout<<"=>   "<<options[i];
         }
         else{
-            SetConsoleTextAttribute(xOut,FOREGROUND_BLUE|0x8);
+            SetConsoleTextAttribute(xOut,FOREGROUND_BLUE|0x0b);
             zos.X = 48;
             zos.Y = 5 + i;
             SetConsoleCursorPosition(xOut,zos);
@@ -1033,7 +1038,7 @@ void Master::theMasterSystem(){
     while(true){
         readRestaurantData();
 
-        showTheVersion(xOut,options,optionNum,thatIndex);
+        showTheVersion(options,optionNum,thatIndex);
         opo = select(optionNum,&thatIndex);
         if(opo == ESC_){
             system("cls");

@@ -20,6 +20,9 @@ using namespace std;
 
 int main()
 {
+
+    SetConsoleTitle("Login");
+
     LogIn user;
     user.login();
 

@@ -2,29 +2,136 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="394" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="menu.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1451" topLine="17" />
-		</Cursor>
-		<Folding>
-			<Collapse line="15" />
-			<Collapse line="21" />
-		</Folding>
-	</File>
 	<File name="orglCode.cc" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="31796" topLine="952" />
+			<Cursor1 position="7792" topLine="138" />
 		</Cursor>
 		<Folding>
 			<Collapse line="29" />
 			<Collapse line="34" />
+			<Collapse line="41" />
+			<Collapse line="49" />
+			<Collapse line="58" />
 			<Collapse line="74" />
+			<Collapse line="79" />
+			<Collapse line="82" />
+			<Collapse line="83" />
+			<Collapse line="85" />
+			<Collapse line="87" />
+			<Collapse line="90" />
 			<Collapse line="101" />
+			<Collapse line="106" />
+			<Collapse line="109" />
+			<Collapse line="110" />
+			<Collapse line="112" />
+			<Collapse line="114" />
+			<Collapse line="117" />
+			<Collapse line="128" />
+			<Collapse line="130" />
+			<Collapse line="136" />
+			<Collapse line="238" />
+			<Collapse line="246" />
+			<Collapse line="251" />
+			<Collapse line="252" />
+			<Collapse line="303" />
+			<Collapse line="306" />
+			<Collapse line="320" />
+			<Collapse line="337" />
+			<Collapse line="354" />
+			<Collapse line="361" />
+			<Collapse line="362" />
+			<Collapse line="382" />
+			<Collapse line="385" />
+			<Collapse line="386" />
+			<Collapse line="397" />
+			<Collapse line="409" />
+			<Collapse line="412" />
+			<Collapse line="416" />
+			<Collapse line="425" />
+			<Collapse line="449" />
+			<Collapse line="462" />
+			<Collapse line="498" />
+			<Collapse line="554" />
+			<Collapse line="593" />
+			<Collapse line="632" />
+			<Collapse line="635" />
+			<Collapse line="644" />
+			<Collapse line="652" />
+			<Collapse line="657" />
+			<Collapse line="658" />
+			<Collapse line="675" />
+			<Collapse line="686" />
+			<Collapse line="689" />
+			<Collapse line="690" />
+			<Collapse line="699" />
+			<Collapse line="700" />
+			<Collapse line="709" />
+			<Collapse line="736" />
+			<Collapse line="740" />
+			<Collapse line="763" />
+			<Collapse line="778" />
+			<Collapse line="779" />
+			<Collapse line="780" />
+			<Collapse line="784" />
+			<Collapse line="789" />
+			<Collapse line="790" />
+			<Collapse line="805" />
+			<Collapse line="814" />
+			<Collapse line="828" />
+			<Collapse line="829" />
+			<Collapse line="835" />
+			<Collapse line="840" />
+			<Collapse line="841" />
+			<Collapse line="855" />
+			<Collapse line="863" />
+			<Collapse line="879" />
+			<Collapse line="882" />
+			<Collapse line="883" />
+			<Collapse line="885" />
+			<Collapse line="893" />
+			<Collapse line="901" />
+			<Collapse line="910" />
+			<Collapse line="926" />
+			<Collapse line="931" />
+			<Collapse line="935" />
+			<Collapse line="942" />
+			<Collapse line="943" />
+			<Collapse line="963" />
+			<Collapse line="965" />
+			<Collapse line="976" />
+			<Collapse line="983" />
+			<Collapse line="986" />
+			<Collapse line="992" />
+			<Collapse line="996" />
+			<Collapse line="1016" />
+			<Collapse line="1037" />
+			<Collapse line="1042" />
+			<Collapse line="1048" />
+			<Collapse line="1049" />
+			<Collapse line="1063" />
+			<Collapse line="1070" />
 		</Folding>
+	</File>
+	<File name="menu.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3453" topLine="21" />
+		</Cursor>
+		<Folding>
+			<Collapse line="15" />
+			<Collapse line="21" />
+			<Collapse line="34" />
+			<Collapse line="37" />
+			<Collapse line="49" />
+			<Collapse line="54" />
+			<Collapse line="72" />
+			<Collapse line="80" />
+			<Collapse line="88" />
+			<Collapse line="96" />
+		</Folding>
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="470" topLine="0" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
